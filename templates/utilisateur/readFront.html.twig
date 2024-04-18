@@ -1,0 +1,10 @@
+{% extends 'Front.html.twig' %}
+{%block header%}
+{%endblock%}
+{# Modifier le block content#}
+{%block section%}
+{%for utilisateur in Utilisateur%}
+{{utilisateur.nom}}
+{{utilisateur.email}}
+{% endfor %}
+{% endblock%}

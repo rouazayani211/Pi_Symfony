@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+{%block title%}
+Dashboard
+{%endblock%}
+{%block stylesheet%}
+ <link href="back/assets/css/read.css" rel="stylesheet">
+{%endblock%}
+{# Modifier le block content#}
+{%block content%}
+{%for utilisateur in Utilisateur%}
+{{utilisateur.nom}}
+{{utilisateur.email}}
+{% endfor %}
+{% endblock%}
