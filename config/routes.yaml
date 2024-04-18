@@ -1,3 +1,46 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+showproduit:
+    path: /showproduit
+    controller: App\Controller\ProduitController::showproduit
+    methods: ['GET']
+
+
+
+
+addformproduit:  # Nom de la route
+    path: /addformproduit  # Chemin de la route
+    controller: App\Controller\ProduitController::addformproduit  # Méthode du contrôleur gérant cette route
+    methods: ['GET', 'POST']  # Méthodes HTTP acceptées pour cette route
+
+editformproduit:  # Nom de la route
+    path: /editformproduit/{id}
+    controller: App\Controller\ProduitController::editformproduit  # Méthode du contrôleur gérant cette route
+    methods: ['GET', 'POST']  # Méthodes HTTP acceptées pour cette route
+
+deleteproduit:  # Nom de la route
+    path: /deleteproduit/{id}
+    controller: App\Controller\ProduitController::deleteproduit  # Méthode du contrôleur gérant cette route
+    methods: ['GET', 'POST']  # Méthodes HTTP acceptées pour cette route
+
+
+    
+showproduitfront:  # Nom de la route
+    path: /showproduitfront
+    controller: App\Controller\ProduitController::showproduitfront  # Méthode du contrôleur gérant cette route
+    methods: ['GET', 'POST']  # Méthodes HTTP acceptées pour cette route
+
+    
+addToCart:  # Nom de la route
+    path: /add-to-cart/{id}
+    controller: App\Controller\ProduitController::addToCart  # Méthode du contrôleur gérant cette route
+    methods: ['GET', 'POST']  # Méthodes HTTP acceptées pour cette route
+
+showCart:  # Nom de la route
+    path: /showpanier
+    controller: App\Controller\ProduitController::showCart  # Méthode du contrôleur gérant cette route
+    methods: ['GET', 'POST']  # Méthodes HTTP acceptées pour cette route
+
+   
