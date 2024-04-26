@@ -1,3 +1,24 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+add_response:
+    path: /voir_question/{id}
+    controller: src\Controller\QuestionController::addResponse
+
+# routes.yaml
+tick_response:
+    path: /tick-response/{id}
+    controller: App\Controller\QuestionController::tickResponse
+    methods: ['POST']
+
+
+
+block_question:
+    path: /question/{id}/block
+    controller: App\Controller\QuestionController::blockQuestion
+    methods: [POST]
+
+unblock_question:
+    path: /question/{id}/unblock
+    controller: App\Controller\QuestionController::unblockQuestion
+    methods: [POST]

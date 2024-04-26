@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+  {% block head %}
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<link rel="stylesheet" href="./assets/login/css/style.css">
+    <link rel="stylesheet" href="{{ asset('front/fonts/icomoon/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/css/bootstrap/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/css/jquery-ui.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/css/owl.theme.default.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/css/jquery.fancybox.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/css/bootstrap-datepicker.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/fonts/flaticon/font/flaticon.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/css/aos.css') }}">
+<style>
+  .mb-4{
+color:#000;
+  }
+body ,.btn{
+background-color:	#222831;
+}
+
+  
+  
+  </style>
+	</head>
+    
+    {% endblock %}
+
+               {% for flash_error in app.flashes('verify_email_error') %}
+                    <div class="alert alert-danger" role="alert" style="color: red;">{{ flash_error }}</div>
+                            {% endfor %}
+
+    {% block body %}
+	<body>
+    
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+			
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-12 col-lg-10">
+					<div class="wrap d-md-flex">
+							<div class="img" style="background-image: url(./front/images/bg_1.jpg);">
+			      </div>
+						<div class="login-wrap p-4 p-md-5">
+			      	<div class="d-flex">
+
+			      		<div class="w-100">
+
+
+			      			<h3 class="mb-4"> Welcome, Register Now  </h3>
+			      		</div>
+							
+			      	</div>
+
+                        {{ form_errors(registrationForm) }}
+                        {{ form_start(registrationForm) }}  
+
+                        <div class="form-group mb-3">
+    <label for="{{ registrationForm.email.vars.id }}" class="col-form-label">Email</label>
+    <div>
+        {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+        <div style="color: red;">
+            {{ form_errors(registrationForm.email) }}
+        </div>
+    </div>
+</div>
+
+<div class="form-group mb-3">
+    <label for="{{ registrationForm.plainPassword.vars.id }}" class="col-form-label">Password</label>
+    <div>
+        {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+        <div style="color: red;">
+            {{ form_errors(registrationForm.plainPassword) }}
+        </div>
+    </div>
+</div>
+
+<div class="form-group mb-3">
+    <label for="{{ registrationForm.name.vars.id }}" class="col-form-label">First Name</label>
+    <div>
+        {{ form_widget(registrationForm.name, {'attr': {'class': 'form-control'}}) }}
+        <div style="color: red;">
+            {{ form_errors(registrationForm.name) }}
+        </div>
+    </div>
+</div>
+
+<div class="form-group mb-3">
+    <label for="{{ registrationForm.lastname.vars.id }}" class="col-form-label">Last Name</label>
+    <div>
+        {{ form_widget(registrationForm.lastname, {'attr': {'class': 'form-control'}}) }}
+        <div style="color: red;">
+            {{ form_errors(registrationForm.lastname) }}
+        </div>
+    </div>
+</div>
+
+<div class="form-group mb-3">
+    <label for="{{ registrationForm.age.vars.id }}" class="col-form-label">Age</label>
+    <div>
+        {{ form_widget(registrationForm.age, {'attr': {'class': 'form-control'}}) }}
+        <div style="color: red;">
+            {{ form_errors(registrationForm.age) }}
+        </div>
+    </div>
+</div>
+
+<div class="form-group mb-3">
+    <label for="{{ registrationForm.cin.vars.id }}" class="col-form-label">CIN</label>
+    <div>
+        {{ form_widget(registrationForm.cin, {'attr': {'class': 'form-control'}}) }}
+        <div style="color: red;">
+            {{ form_errors(registrationForm.cin) }}
+        </div>
+    </div>
+</div>
+
+<div class="form-group mb-3">
+    <label for="{{ registrationForm.wording.vars.id }}" class="col-form-label">Wording</label>
+    <div>
+        {{ form_widget(registrationForm.wording, {'attr': {'class': 'form-control'}}) }}
+        <div style="color: red;">
+            {{ form_errors(registrationForm.wording) }}
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    {{ form_row(registrationForm.agreeTerms) }}
+</div>
+    
+                         
+              
+
+                          <div class="form-group">
+                     <button class="btn btn-lg " type="submit" style="background-color: #ee1e46;color:white;">
+                                Sign Up
+                                      </button>		   
+                                  </div>
+
+                     <a href="{{path('app_login')}}" >Have an account ?, Log In</a> 
+
+                     </div>
+
+		          
+                   {{ form_end(registrationForm) }}
+
+		      </div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<script src="./assets/loginjs/jquery.min.js"></script>
+  <script src="./assets/login/js/popper.js"></script>
+  <script src="./assets/login/js/bootstrap.min.js"></script>
+  <script src="./assets/login/js/main.js"></script>
+
+	</body>
+    {% endblock %}
+</html>
+

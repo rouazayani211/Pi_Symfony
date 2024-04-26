@@ -1,0 +1,147 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+<style>
+/* Style du conteneur principal */
+.container {
+    width: 75%;
+    margin: 50px auto;
+    align-items:center;
+}
+
+/* Style du titre */
+h1 {
+    text-align: center;
+    font-size: 32px;
+    color: #012970;
+}
+
+/* Style du formulaire */
+form {
+    width: 100%;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    
+}
+
+/* Style des labels */
+label {
+    font-weight: bold;
+    color: #555;
+}
+
+/* Style des champs de formulaire */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: calc(100% - 10px);
+    padding: 10px;
+    margin-top: 4px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+/* Style du bouton */
+input[type="submit"] {
+    width: 100%;
+    padding: 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    
+}
+
+/* Style du bouton au survol */
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* Style du tableau */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Style des cellules de tableau */
+table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+    
+}
+
+ /* Style du lien de suppression */
+    .savebutton {
+        padding: 8px 15px;
+       
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff; /* Red background color for delete */
+        color: #fff; /* White text color */
+        cursor: pointer;
+        font-size: 18px;
+        text-decoration: none; /* Remove underline */
+        transition: background-color 0.3s; /* Smooth transition */
+        margin-left: 42%;
+    }
+
+</style>
+
+<div class="container">
+    {{ form_start(form) }}
+
+    <h1>Update User</h1>
+
+    <table>
+        <tr>
+            <td>{{ form_label(form.name, "First Name") }}</td>
+            <td>{{ form_widget(form.name) }}</td>
+             <td>{{ form_errors(form.name) }}</td>
+
+        </tr>
+        <tr>
+            <td>{{ form_label(form.lastname, "Last name") }}</td>
+            <td>{{ form_widget(form.lastname) }}</td>
+             <td>{{ form_errors(form.lastname) }}</td>
+            
+        </tr>
+        <tr>
+            <td>{{ form_label(form.age, "Age") }}</td>
+            <td>{{ form_widget(form.age) }}</td>
+            <td>{{ form_errors(form.age) }}</td>
+            
+        </tr>
+        <tr>
+            <td>{{ form_label(form.cin, "CIN") }}</td>
+            <td>{{ form_widget(form.cin) }}</td>
+            <td>{{ form_errors(form.cin) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(form.email, "Email") }}</td>
+            <td>{{ form_widget(form.email) }}</td>
+            <td>{{ form_errors(form.email) }}</td>
+
+
+            
+        </tr>
+     
+        <tr>
+            <td>{{ form_label(form.wording, "Wording") }}</td>
+            <td>{{ form_widget(form.wording) }}</td>
+             <td>{{ form_errors(form.wording) }}</td>
+
+        </tr>
+    </table>
+
+    {{ form_end(form) }}
+</div>
+
+
+
+{% endblock %}
+	

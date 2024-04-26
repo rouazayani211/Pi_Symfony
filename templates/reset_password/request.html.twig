@@ -1,0 +1,103 @@
+<link rel="stylesheet" href="{{ asset('front/fonts/icomoon/style.css') }}">
+<link rel="stylesheet" href="{{ asset('front/css/bootstrap/bootstrap.css') }}">
+<link rel="stylesheet" href="{{ asset('front/css/jquery-ui.css') }}">
+<link rel="stylesheet" href="{{ asset('front/css/owl.carousel.min.css') }}">
+<link rel="stylesheet" href="{{ asset('front/css/owl.theme.default.min.css') }}">
+<link rel="stylesheet" href="{{ asset('front/css/jquery.fancybox.min.css') }}">
+<link rel="stylesheet" href="{{ asset('front/css/bootstrap-datepicker.css') }}">
+<link rel="stylesheet" href="{{ asset('front/fonts/flaticon/font/flaticon.css') }}">
+<link rel="stylesheet" href="{{ asset('front/css/aos.css') }}">
+{% block stylesheets %}
+    <style>
+        /* Reset password form styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* pour centrer verticalement */
+            background-color:	#222831;
+        }
+
+        .container {
+            max-width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center; /* pour centrer le titre */
+        }
+
+        .alert {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        small {
+            color: #888;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto; /* pour centrer le bouton */
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+
+
+    {% for flash_error in app.flashes('reset_password_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+    <div class="container">
+        <h1>Reset your password</h1>
+
+        {{ form_start(requestForm) }}
+            <div class="form-group">
+                {{ form_row(requestForm.email) }}
+            </div>
+            <div class="form-group">
+                <small>
+                    Enter your email address, and we will send you a
+                    link to reset your password.
+                </small>
+            </div>
+
+            <button class="btn btn-primary">Send password reset email</button>
+        {{ form_end(requestForm) }}
+    </div>
+{% endblock %}
