@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Résumé de {{ summary.title }}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ asset('fonts/icomoon/style.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+  
+  <!-- Custom styles to add more margin -->
+  <style>
+    .content-spacing {
+      margin-top: 150px; /* Increase to create more space */
+    }
+  </style>
+</head>
+<body>
+  <div class="site-wrap">
+    <!-- Include header with logo and navigation -->
+    <header class="site-navbar py-4" role="banner">
+      <div class="container">
+        <div class="d-flex align-items-center">
+          <div class="site-logo">
+            <a href="{{ path('app_equipe_front') }}">
+              <img src="{{ asset('images/logo20.png') }}" alt="Logo" style="width:200px; height:auto;">
+            </a>
+          </div>
+          <div class="ml-auto">
+            <nav class="site-navigation position-relative text-right" role="navigation">
+              <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
+                <li class="active"><a href="{{ path('app_joueur_front') }}" class="nav-link">Joueurs</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Spacer to create additional gap -->
+    <div style="height: 100px;"></div> <!-- Spacer to ensure proper spacing -->
+
+    <!-- Main content section with margin-top to create more space -->
+    <div class="container content-spacing">
+      <h1>Résumé de {{ summary.title }}</h1>
+      <p><strong>Description:</strong> {{ summary.extract }}</p>
+      
+      <!-- Link back to the player details -->
+      <a class="btn btn-secondary" href="{{ path('app_joueur_show_front', {'id': joueur.id}) }}">Retour au joueur</a>
+    </div>
+
+    <!-- Footer section -->
+    <footer class="footer-section">
+      <div class="container"> 
+        <!-- Add footer content here -->
+      </div>
+    </footer>
+  </div>
+
+  <!-- Include necessary scripts -->
+  <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+  <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+</body>
+</html>

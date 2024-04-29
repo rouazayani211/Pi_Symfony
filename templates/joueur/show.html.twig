@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Joueur{% endblock %}
+
+{% block body %}
+    <h1>Joueur</h1>
+     <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Preom</th>
+                <th>Age</th>
+                <th>Numero</th>
+                <th>position</th>
+                <th>equipe</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ joueur.id }}</td>
+                <td>{{ joueur.nom }}</td>
+                <td>{{ joueur.prenom }}</td>
+                <td>{{ joueur.age }}</td>
+                <td>{{ joueur.numero }}</td>
+                <td>{{ joueur.position }}</td>
+                <td>{{ joueur.id_equipe }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_joueur_index') }}" class="btn btn-secondary">back to list</a>
+
+   
+<a href="{{ path('app_joueur_summary', {'nom': joueur.nom}) }}" class="btn btn-info">
+        Summary from Wikipédia
+    </a>
+   
+{% endblock %}

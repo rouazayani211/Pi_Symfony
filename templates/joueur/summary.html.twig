@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Résumé de {{ summary.title }}{% endblock %}
+
+{% block body %}
+    <h1>Résumé de {{ summary.title }}</h1>
+    
+    <p><strong>Description:</strong> {{ summary.extract }}</p>
+    
+    <!-- Add a link back to the original joueur -->
+    <a href="{{ path('app_joueur_show', {'id': joueur.id}) }}" class="btn btn-secondary">Back to Joueur</a>
+{% endblock %}

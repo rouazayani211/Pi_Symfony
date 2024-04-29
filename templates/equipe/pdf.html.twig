@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Equipe Table</title>
+  <style>
+    /* Add styles for the PDF here. For example, table styles */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <h1>Equipe Table</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>IdEquipe</th>
+        <th>Nom</th>
+        <th>Region</th>
+        <th>Ligue</th>
+        <th>Classement</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for equipe in equipes %}
+      <tr>
+        <td>{{ equipe.idEquipe }}</td>
+        <td>{{ equipe.nom }}</td>
+        <td>{{ equipe.region }}</td>
+        <td>{{ equipe.ligue }}</td>
+        <td>{{ equipe.classement }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>

@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Equipe Index{% endblock %}
+
+{% block body %}
+<div class="search-bar">
+     <form class="search-form d-flex align-items-center" method="GET" action="{{ path('app_equipe_index') }}">
+    <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+    <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+</form>
+    </div><!-- End Search Bar -->
+<h1>Equipe Index</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>IdEquipe</th>
+            <th>Nom</th>
+            <th>Region</th>
+            <th>Ligue</th>
+            <th>Classement</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for equipe in pagination %}
+        <tr>
+            <td>{{ equipe.idEquipe }}</td>
+            <td>{{ equipe.nom }}</td>
+            <td>{{ equipe.region }}</td>
+            <td>{{ equipe.ligue }}</td>
+            <td>{{ equipe.classement }}</td>
+            <td>
+                <a href="{{ path('app_equipe_show', {'idEquipe': equipe.idEquipe}) }}" class="btn btn-primary">Show</a>
+                <a href="{{ path('app_equipe_edit', {'idEquipe': equipe.idEquipe}) }}" class="btn btn-secondary">Edit</a>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="6">No records found</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<!-- Pagination links -->
+<div class="pagination">
+    {{ knp_pagination_render(pagination) }}
+</div>
+
+<a href="{{ path('app_equipe_new') }}" class="btn btn-primary">Create Equipe</a>
+{# Sorting buttons for classement #}
+<a href="{{ path('app_equipe_download_pdf') }}" class="btn btn-info">Download as PDF</a>
+<a href="{{ path('app_equipe_download_text') }}" class="btn btn-info">Download as Bloc-note</a>
+<a href="{{ path('app_equipe_statistics') }}" class="btn btn-info">View Statistics</a>
+<!--<p>Translate this page in your preferred language:</p>-->
+    <div id="google_translate_element"></div> 
+    <script type="text/javascript"> 
+    function googleTranslateElementInit() { 
+      new google.translate.TranslateElement({pageLanguage: 'fr'},'google_translate_element'); 
+    } 
+    </script> 
+    <script type="text/javascript"src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> 
+   <!--   <p>Vous pouvez traduire le contenu de cette page en sélectionnant une langue dans le menu déroulant.</p>-->
+
+
+
+{% endblock %}

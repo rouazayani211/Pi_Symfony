@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Equipe Statistics{% endblock %}
+
+{% block body %}
+<h1>Equipe Statistics</h1>
+
+<!-- Include Chart.js from CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Set a smaller size for the pie chart -->
+<div style="width: 450px; height: 450px;">
+  <canvas id="classementChart"></canvas>
+</div>
+
+<script>
+    const ctx = document.getElementById("classementChart").getContext("2d");
+
+    const data = {
+        labels: ["Promotion", "No Rewards", "Relegation"],
+        datasets: [{
+            label: "number of equipe",
+            data: [
+                {{ promotionCount }},
+                {{ noRewardsCount }},
+                {{ relegationCount }}
+            ],
+            backgroundColor: [
+                "rgba(75, 192, 192, 0.5)",
+                "rgba(54, 162, 235, 0.5)",
+                "rgba(255, 99, 132, 0.5)"
+            ],
+            borderColor: [
+                "rgba(75, 192, 192, 1)",
+                "rgba(54, 162, 235, 1)",
+                "rgba(255, 99, 132, 1)"
+            ],
+            borderWidth: 1
+        }]
+    };
+
+    const config = {
+        type: "pie",
+        data: data,
+        options: {
+            responsive: true,
+            maintainAspectRatio: true, // Keep the aspect ratio even with smaller size
+            plugins: {
+                legend: {
+                    position: "top"
+                }
+            }
+        }
+    };
+
+    const myPieChart = new Chart(ctx, config);
+</script>
+<a href="{{ path('app_equipe_index') }}" class="btn btn-secondary">back to list</a>
+{% endblock %}

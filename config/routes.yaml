@@ -1,3 +1,13 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+# routes.yaml
+app_joueur_download:
+    path: /download
+    controller: App\Controller\JoueurController::download
+    methods: ['GET']
+    options:
+        expose: true
+        converter: false        
+
