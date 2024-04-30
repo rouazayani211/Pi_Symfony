@@ -1,0 +1,51 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}New Ticket{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .custom-text-color {
+            color: black !important;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-lg">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h2 class="card-title mb-0">Create New Ticket</h2>
+                    </div>
+                    <div class="card-body">
+                        {{ form_start(form) }}
+                        <div class="mb-3">
+                            {{ form_row(form.NumSiege, {'attr': {'class': 'form-control custom-text-color', 'placeholder': 'Seat Number'}}) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_row(form.prix, {'attr': {'class': 'form-control custom-text-color', 'placeholder': 'Price'}}) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_row(form.dateEvenement, {'attr': {'class': 'form-control custom-text-color', 'placeholder': 'Event Date'}}) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_row(form.statutTicket, {'attr': {'class': 'form-select custom-text-color'}, 'data': 'En Attente', 'readonly': true}) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_row(form.idReservation, {'attr': {'class': 'form-select custom-text-color'}}) }}
+                        </div>
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary btn-block">Create Ticket</button>
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3 justify-content-center">
+            <div class="col-lg-8">
+                <a href="{{ path('app_ticket_index') }}" class="btn btn-secondary btn-block">Back to List</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}New Reservation{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .custom-text-color {
+            color: black !important;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-lg">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h2 class="card-title mb-0">Create New Reservation</h2>
+                    </div>
+                    <div class="card-body">
+                        {{ form_start(form) }}
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                {{ form_row(form.dateDeReservation, {'attr': {'class': 'form-control custom-text-color'}}) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(form.nombreTicket, {'attr': {'class': 'form-control custom-text-color'}}) }}
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            {{ form_row(form.statutReservation, {'attr': {'class': 'form-select custom-text-color'}, 'data': 'En Attente', 'readonly': true}) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_row(form.idUser, {'attr': {'class': 'form-select custom-text-color'}}) }}
+                        </div>
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary btn-block">Create Reservation</button>
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3 justify-content-center">
+            <div class="col-lg-8">
+                <a href="{{ path('app_reservation_index') }}" class="btn btn-secondary btn-block">Back to List</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
