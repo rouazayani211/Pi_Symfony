@@ -7,43 +7,47 @@
 
     
    <div class="container site-section">
-  <div class="row">
-    <div class="col-6 title-section">
-      <h2 class="heading"> Products</h2>
-    </div>
-  </div>
-  <div class="row">
-   {% for produit in produit %}
-<div class="col-lg-4 mb-4">
-    <div class="custom-media d-block">
-        <div class="img mb-4">
-            <a href="single.html"><img src="{{ asset('Front/images/img_3.jpg') }}" alt="Image" class="img-fluid"></a>
+    <div class="row">
+        <div class="col-6 title-section">
+            <h2 class="heading">Products</h2>
         </div>
-        <div class="text">
-            <span class="meta">Prix: {{ produit.getPrix }}</span>
-            <h3 class="mb-4"><a href="#">{{ produit.getNomProduit }}</a></h3>
-            <p>{{ produit.getDescription }}</p>
-            <p><a href="{{ path('add_to_cart', {id: produit.getId}) }}">Add Product</a></p>  
-            <div class="text-right"> <!-- Apply text-right class here -->
-                <span>Stock: {{ produit.getStockDisponible }}</span>
+        <div class="search-bar">
+            <form class="form-inline" method="POST" action="#">
+                <input type="search" class="form-control" id="example-search-input" placeholder="Search" title="Enter search keyword">
+            </form>
+        </div><!-- End Search Bar -->
+    </div>
+  <div class="row" id="dataTable">
+        {% for produits in produit %}
+        <div class="col-lg-4 mb-4 custom-media">
+            <div class="d-block">
+                <div class="img mb-4">
+                  <img src="{{ asset('Front/images/img_3.jpg') }}" alt="Image" class="img-fluid">
+                </div>
+                <div class="text" class="event-row">
+                    <span class="meta">Prix: {{ produits.getPrix }}</span>
+                    <h3 class="mb-4">{{ produits.getNomProduit }}</h3>
+                    <p>{{ produits.getDescription }}</p>
+                    <p><a href="{{ path('add_to_cart', {id: produits.getId}) }}">Add Product</a></p>
+                    <div class="text-right">
+                        <span>Stock: {{ produits.getStockDisponible }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+  <div class="row justify-content-center">
+        <div class="col-lg-7 text-center">
+            <div class="custom-pagination">
+                <a href="#">1</a>
+                <span>2</span>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">5</a>
             </div>
         </div>
     </div>
-</div>
-{% endfor %}
-
-  </div>
-  <div class="row justify-content-center">
-    <div class="col-lg-7 text-center">
-      <div class="custom-pagination">
-        <a href="#">1</a>
-        <span>2</span>
-        <a href="#">3</a>
-        <a href="#">4</a>
-        <a href="#">5</a>
-      </div>
-    </div>
-  </div>
 </div>
 
 
@@ -146,7 +150,18 @@
 <script src="{{ asset('Front/js/jquery.mb.YTPlayer.min.js') }}"></script>
 
 <script src="{{ asset('Front/js/main.js') }}"></script>
+<script>
+    $(document).ready(function () {
+        $('#example-search-input').on('input', function () {
+            var searchQuery = $(this).val().toLowerCase();
 
+            $('#dataTable .custom-media').each(function () {
+                var productText = $(this).text().toLowerCase();
+                $(this).toggle(productText.includes(searchQuery));
+            });
+        });
+    });
+</script>
 
 </body>
 

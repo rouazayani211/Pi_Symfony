@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CommandesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -19,8 +21,22 @@ class Commandes
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
-    #[ORM\ManyToOne(inversedBy: 'commandes')]
+    #[ORM\ManyToOne(inversedBy: 'commandes', targetEntity: Produit::class)]
     private ?Produit $produit = null;
+
+// ...
+
+    public function getProduit(): ?Produit
+    {
+        return $this->produit;
+    }
+
+    public function setProduit(?Produit $produit): self
+    {
+        $this->produit = $produit;
+
+        return $this;
+    }
 
     #[ORM\Column(length: 25)]
     #[Assert\NotBlank(message:"Champ obligatoire")]
@@ -34,10 +50,26 @@ class Commandes
         minMessage: 'L Adresse doit comporter au moins {{ limit }} caractères',
         maxMessage: 'L Adresse ne peut pas dépasser {{ limit }} caractères',
     )]
-
     private ?string $Adresse = null;
 
+  
+    
+    #[ORM\Column]
+    private ?float $montant = null;
 
+
+
+    public function getMontant(): ?float
+    {
+        return $this->montant;
+    }
+
+    public function setMontant(float  $montant): static
+    {
+        $this->montant =$montant;
+
+        return $this;
+    }
 
     public function getId(): ?int
     {
@@ -56,17 +88,8 @@ class Commandes
         return $this;
     }
 
-    public function getProduit(): ?Produit
-    {
-        return $this->produit;
-    }
 
-    public function setProduit(?Produit $produit): static
-    {
-        $this->produit = $produit;
-
-        return $this;
-    }
+    // In Commandes entity
 
     public function getModePayement(): ?string
     {

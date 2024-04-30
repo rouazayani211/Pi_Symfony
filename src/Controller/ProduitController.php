@@ -8,6 +8,7 @@ use App\Form\CommandesType;
 use App\Form\ProduitType;
 use App\Repository\CommandesRepository;
 use App\Repository\ProduitRepository;
+use App\Services\EmailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,17 +32,17 @@ class ProduitController extends AbstractController
     #[Route('/addformproduit', name: 'addformproduit')]
     public function addformproduit(ManagerRegistry $managerRegistry ,Request $request): Response
     {   
-        $em=$managerRegistry->getManager() ;             //donner l'acces au fonctionalite (persiste/flush)
+        $em=$managerRegistry->getManager() ;             
  
         $produits =new Produit();
-        $form=$this->createForm(ProduitType::class , $produits)   ;     //bch nasn3ou form fiha deux parametre li hiya lform w l'instance mteena
-        $form->handleRequest($request) ;               //les donnes de requete http sont associé au formulaire 
+        $form=$this->createForm(ProduitType::class , $produits)   ;     
+        $form->handleRequest($request) ;               
  
-        if($form->isSubmitted() and $form->isValid()){      //est ce que button qrass aaliha wela et est ceque les champs hatt'hom valid wela 
+        if($form->isSubmitted() and $form->isValid()){       
  
-            $em->persist($produits);                          //t'hadher requet INSERT
-            $em->flush() ;                                   //execute 
-            return $this->redirectToRoute('showproduit') ;   //lehna nhott esm route mch rouute (name)
+            $em->persist($produits);                          
+            $em->flush() ;                                   
+            return $this->redirectToRoute('showproduitfront') ;   
  
         }
         return $this->renderForm('produit/back/addformproduit.html.twig', [
@@ -60,13 +61,13 @@ class ProduitController extends AbstractController
      
         $form=$this->createForm(ProduitType::class,$produits) ;
         $form->handleRequest($request) ; 
-        if($form->isSubmitted() and $form->isValid()){      //est ce que button qrass aaliha wela et est ceque les camps hatt'hom valid wela 
+        if($form->isSubmitted() and $form->isValid()){      
  
-            $em->persist($produits);                          //t'hadher requet INSERT
-            $em->flush() ;                                   //execute 
+            $em->persist($produits);                          
+            $em->flush() ;                                  
 
 
-            return $this->redirectToRoute('showproduit') ;
+            return $this->redirectToRoute('showproduitfront') ;
  
         }
  
@@ -150,7 +151,7 @@ public function addToCart(Request $request, $id): Response
         $cart[$id] = [
             'id' => $produit->getId(),
             'description' => $produit->getDescription(),
-            'nom' => $produit->getNomProduit(),
+            'nom_produit' => $produit->getNomProduit(),
             'stock_disponible' => $produit->getStockDisponible(),
             'prix' => $produit->getPrix(),
         ];
@@ -243,36 +244,110 @@ public function addToCart(Request $request, $id): Response
 //     return $this->redirectToRoute('showpanier');
 // }
 
-    
 
-#[Route('/validate-order', name: 'validate_order', methods: ['GET', 'POST'])]
-public function validateOrder(Request $request, SessionInterface $session,ManagerRegistry $managerRegistry): Response
-{
-    $em=$managerRegistry->getManager() ;             //donner l'acces au fonctionalite (persiste/flush)
- 
-        $commande =new Commandes();
-        $form=$this->createForm(CommandesType::class , $commande)   ;     //bch nasn3ou form fiha deux parametre li hiya lform w l'instance mteena
-        $form->handleRequest($request) ;               //les donnes de requete http sont associé au formulaire 
- 
-        if($form->isSubmitted() and $form->isValid()){      //est ce que button qrass aaliha wela et est ceque les champs hatt'hom valid wela 
- 
-            $em->persist($commande);                          //t'hadher requet INSERT
-            $em->flush() ;                                   //execute 
-            return $this->redirectToRoute('showproduitfront') ;   //lehna nhott esm route mch rouute (name)
- 
+
+    #[Route('/validate-order', name: 'validate_order', methods: ['GET', 'POST'])]
+    public function validateOrder(Request $request, SessionInterface $session, ManagerRegistry $managerRegistry,
+    EmailService $emailService): Response
+    {
+        $em = $managerRegistry->getManager();
+
+        $commande = new Commandes();
+        $form = $this->createForm(CommandesType::class, $commande);
+        $form->handleRequest($request);
+        $cart = $request->getSession()->get('cart', []);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $commande->setDate(new \DateTime());
+            $totalMontant = 0;
+            foreach ($cart as $item) {
+                $product = $em->getRepository(Produit::class)->find($item['id']);
+                if ($product) {
+                    // Assume that addProduit is a method in Commandes entity that adds a single Produit to the collection
+                    $commande->setProduit($product);
+                    $totalMontant += $product->getPrix();
+                }
+            }
+            $commande->setMontant($totalMontant);
+            $em->persist($commande);
+            $em->flush();
+
+            $session->remove('cart'); // Clear the cart after order is validated
+            $request->getSession()->set('montant', $totalMontant);
+
+            //add if   en carte    si carte return  redirectroute to stripe else cnd lo5ra else redirect blassa o5ra
+            return $this->redirectToRoute('stripe');
         }
+
         return $this->renderForm('produit/front/validation.html.twig', [
             'f' => $form
         ]);
+    }
+
+    
+    
+
+    
+    
+#[Route('/export/excelProduit', name: 'app_event_exportproduct_excel', methods: ['GET'])]
+    public function exportExcel(EntityManagerInterface $entityManager): Response
+    {
+        // Récupérer les données des pays depuis la base de données
+        $produits = $entityManager
+        ->getRepository(Produit::class)
+        ->findAll();
+    
+         // Créer un nouveau fichier Excel
+         $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+         $sheet = $spreadsheet->getActiveSheet();
+         
+        // Ajouter les en-têtes
+        $sheet->setCellValue('A1', 'ID');
+        $sheet->setCellValue('B1', 'Product Name');
+        $sheet->setCellValue('C1', 'Price');
+        $sheet->setCellValue('D1', 'Description');
+        $sheet->setCellValue('E1', 'Available stock');
+    
+        // Remplir les données
+        $row = 2;
+        foreach ($produits as $produit) {
+            $sheet->setCellValue('A' . $row, $produit->getId());
+            $sheet->setCellValue('B' . $row, $produit->getNomProduit());
+            // Ajouter le lien vers l'image
+            $sheet->setCellValue('C' . $row, $produit->getPrix());
+            $sheet->setCellValue('D' . $row, $produit->getDescription());
+            $sheet->setCellValue('E' . $row, $produit->getStockDisponible());
+
+            $row++;
+        }
+        // Créer le writer pour Excel
+        $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+        // Enregistrer le fichier Excel
+        $writer->save('product_export.xlsx');
+        // Retourner une réponse avec le fichier Excel
+        return $this->file('product_export.xlsx');
+    }
+
+
+
+
+    #[Route('/statsProduit', name: 'app_Prodstats')]
+public function statistiquess(ProduitRepository $produitRepo)
+{
+    $produits = $produitRepo->findAll();
+
+    $productData = [];
+    foreach($produits as $produit) {
+        $productData[] = [
+            'name' => $produit->getNomProduit(), // Assuming 'getNom()' is the method to get the product's name
+            'stock' => $produit->getStockDisponible()
+        ];
+    }
+
+    return $this->render('/produit/back/statsProd.html.twig', [
+        'productData' => json_encode($productData)
+    ]);
 }
-
-    
-    
-
-    
-    
-
-
 
 
 }

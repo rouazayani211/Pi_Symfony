@@ -139,7 +139,7 @@ class Produit
     {
         if (!$this->commandes->contains($commande)) {
             $this->commandes->add($commande);
-            $commande->setProduit($this);
+
         }
 
         return $this;
@@ -150,7 +150,7 @@ class Produit
         if ($this->commandes->removeElement($commande)) {
             // set the owning side to null (unless already changed)
             if ($commande->getProduit() === $this) {
-                $commande->setProduit(null);
+               
             }
         }
 

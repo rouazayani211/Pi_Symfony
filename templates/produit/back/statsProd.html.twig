@@ -1,0 +1,38 @@
+{% extends 'produit/back/base.html.twig' %}
+
+{% block body %}
+<main id="main" class="main">
+    <section class="section">
+ <div class="container">
+   <center> <h1>Statistiques</h1> </center>
+    <canvas id="product_chart" width="400" height="100"></canvas>
+ </div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx = document.getElementById('product_chart');
+  const productData = JSON.parse('{{ productData | raw }}');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: productData.map(prod => prod.name),
+      datasets: [{
+        label: 'Stock disponible',
+        data: productData.map(prod => prod.stock),
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js" integrity="sha512-L0Shl7nXXzIlBSUUPpxrokqq4ojqgZFQczTYlGjzONGTDAcLremjwaWv5A+EDLnxhQzY5xUZPWLOLqYRkY0Cbw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+ </section>
+ </main>
+{% endblock %}
+

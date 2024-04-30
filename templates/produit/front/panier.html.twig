@@ -53,7 +53,7 @@
                             {% for produit in cart %}
                             <tr>
                                 <td>{{ loop.index }}</td>
-                                <td><strong class="text-white">{{ produit.nom }}</strong></td>
+                                <td><strong class="text-white">{{ produit.nom_produit }}</strong></td>
                                 <td>{{produit.description}}</td>
                                 <td>{{produit.prix}}</td>
                                 <td>{{produit.stock_disponible}}</td>
