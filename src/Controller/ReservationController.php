@@ -19,15 +19,23 @@ use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Knp\Component\Pager\PaginatorInterface;
 
 #[Route('/reservation')]
 class ReservationController extends AbstractController
 {
     #[Route('/', name: 'app_reservation_index', methods: ['GET'])]
-    public function index(ReservationRepository $reservationRepository): Response
+    public function index(ReservationRepository $reservationRepository,PaginatorInterface $paginator, Request $request): Response
     {
+        $reservationQuery=$reservationRepository->findAll();
+        // Paginer les résultats des reservation
+        $reservation = $paginator->paginate(
+            $reservationQuery, // Requête des résultats
+            $request->query->getInt('page', 1), // Page actuelle
+            4 // Nombre d'éléments par page
+        );
         return $this->render('reservation/index.html.twig', [
-            'reservations' => $reservationRepository->findAll(),
+            'reservations' => $reservation,
         ]);
     }
     #[Route('/back', name: 'app_reservation_indexback', methods: ['GET'])]
