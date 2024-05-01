@@ -10,8 +10,12 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+//use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
+//use Symfony\Component\Notifier\Notification\Notification;
+use Joli\JoliNotif\Notification;
+use Joli\JoliNotif\NotifierFactory;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
 #[Route('/reservation')]
 class ReservationController extends AbstractController
@@ -132,11 +136,22 @@ class ReservationController extends AbstractController
     #[Route('/back/{id}/edit', name: 'app_reservation_editback', methods: ['GET', 'POST'])]
     public function editback(Request $request, Reservation $reservation, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(ReservationType::class, $reservation);
+       /* $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
+            
+            // Create a Notifier
+            $notifier = NotifierFactory::create();
+ 
+            // Create your notification
+            $notification =(new Notification())
+                ->setTitle('Notification title')
+                ->setBody('This is the body of your notification');
+
+            // Send it
+            $notifier->send($notification);
 
             return $this->redirectToRoute('app_reservation_indexback', [], Response::HTTP_SEE_OTHER);
         }
@@ -144,7 +159,33 @@ class ReservationController extends AbstractController
         return $this->renderForm('reservation/editback.html.twig', [
             'reservation' => $reservation,
             'form' => $form,
-        ]);
+        ]);*/
+        $form = $this->createForm(ReservationType::class, $reservation);
+         $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $entityManager->flush();
+        
+        // Create your notification
+        $notifier = NotifierFactory::create();
+        $notification = (new Notification())
+            ->setTitle('Reservation Updated')
+            ->setBody('Reservation ID: '.$reservation->getId().' - Status: '.$reservation->getStatutReservation().' - has been updated successfully.');
+    
+        // Envoyez la notification
+        $notifier->send($notification);
+
+        // Add success flash message
+       // $flashBag->add('success', 'The reservation has been updated successfully.');
+
+        // Redirect to indexback route
+        return $this->redirectToRoute('app_reservation_indexback');
+    }
+
+    return $this->render('reservation/editback.html.twig', [
+        'reservation' => $reservation,
+        'form' => $form->createView(),
+    ]);
     }
 
     #[Route('/{id}', name: 'app_reservation_delete', methods: ['POST'])]

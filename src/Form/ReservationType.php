@@ -32,7 +32,7 @@ class ReservationType extends AbstractType
         ->add('nombreTicket', null, [
             'constraints' => [
                 new Positive(['message' => 'Le nombre de tickets doit être positif.']),
-                new LessThanOrEqual(['value' => 5, 'message' => 'Le nombre de tickets ne doit pas dépasser 20.']),
+                new LessThanOrEqual(['value' => 5, 'message' => 'Le nombre de tickets ne doit pas dépasser 5.']),
                 // Vous pouvez ajouter d'autres contraintes de validation selon vos besoins
             ],
         ])
