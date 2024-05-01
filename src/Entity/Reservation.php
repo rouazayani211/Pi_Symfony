@@ -26,7 +26,7 @@ class Reservation
     #[Assert\NotBlank(message:"Champ obligatoire")]
     #[Assert\Range(
         min: 1,
-        max: 20,
+        max: 5,
         notInRangeMessage: "Le nombre de ticket doit être compris entre {{ min }} et {{ max }}",
     )]
     private ?int $nombreTicket = null;

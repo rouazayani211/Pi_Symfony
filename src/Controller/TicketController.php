@@ -12,6 +12,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Joli\JoliNotif\Notification;
+use Joli\JoliNotif\NotifierFactory;
 
 #[Route('/ticket')]
 class TicketController extends AbstractController
@@ -127,7 +129,13 @@ class TicketController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-
+            $notifier = NotifierFactory::create();
+            $notification = (new Notification())
+                ->setTitle('Ticket Updated')
+                ->setBody('Ticket ID: '.$ticket->getId().' - Status: '.$ticket->getStatutTicket().' - has been updated successfully.');
+        
+            // Envoyez la notification
+            $notifier->send($notification);
             return $this->redirectToRoute('app_ticket_indexback', [], Response::HTTP_SEE_OTHER);
         }
 

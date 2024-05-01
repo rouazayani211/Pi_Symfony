@@ -17,6 +17,7 @@
                             <p class="card-text">Statut de Reservation: {{ reservation.statutReservation }}</p>
                             <a href="{{ path('app_reservation_show', {'id': reservation.id}) }}" class="btn btn-primary">Show</a>
                             <a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}" class="btn btn-secondary">Edit</a>
+                            <a href="{{ path('app_reservation_generate_pdf', {'id': reservation.id}) }}" class="btn btn-dark">Create PDF</a>
                         </div>
                     </div>
                 </div>
@@ -28,7 +29,7 @@
                 </div>
             {% endfor %}
         </div>
-
         <a href="{{ path('app_reservation_new') }}" class="btn btn-success">Create new</a>
+        <a href="{{ path('app_reservation_generate_all_pdf') }}" class="btn btn-dark"> PDF ALL</a>        
     </div>
 {% endblock %}

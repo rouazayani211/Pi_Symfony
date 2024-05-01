@@ -1,0 +1,52 @@
+{# templates/reservation/pdf_template.html.twig #}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Réservation</title>
+    <style>
+        /* Styles généraux */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        /* Styles pour les détails de la réservation */
+        .reservation-details {
+            margin-top: 50px;
+        }
+        .reservation-details p {
+            margin-bottom: 10px;
+        }
+        .reservation-details strong {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Réservation</h1>
+        </div>
+        <div class="reservation-details">
+            <p><strong>ID :</strong> {{ reservation.id }}</p>
+            <p><strong>Date de Reservation :</strong> {{ reservation.dateDeReservation|date('Y-m-d') }}</p>
+            <p><strong>Nombre de Ticket :</strong> {{ reservation.nombreTicket }}</p>
+            <p><strong>Statut :</strong> {{ reservation.statutReservation }}</p>
+        </div>
+    </div>
+</body>
+</html>

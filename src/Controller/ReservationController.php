@@ -16,6 +16,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Joli\JoliNotif\Notification;
 use Joli\JoliNotif\NotifierFactory;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 #[Route('/reservation')]
 class ReservationController extends AbstractController
@@ -207,5 +210,85 @@ class ReservationController extends AbstractController
         }
 
         return $this->redirectToRoute('app_reservation_indexback', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/generate-pdf/{id}', name: 'app_reservation_generate_pdf', requirements: ['id' => '\d+'])]
+    public function generatePdf(Reservation $reservation): Response
+    {
+        // Créez une instance de Dompdf
+        $dompdf = new Dompdf();
+
+        // Récupérez le contenu HTML à partir d'un template Twig
+        $html = $this->renderView('reservation/pdf.html.twig', [
+            'reservation' => $reservation,
+        ]);
+
+        // Chargez le contenu HTML dans Dompdf
+        $dompdf->loadHtml($html);
+
+        // Réglez les options de Dompdf si nécessaire
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $dompdf->setOptions($options);
+
+        // Rendre le PDF
+        $dompdf->render();
+
+        // Récupérer le contenu du PDF
+        $pdfContent = $dompdf->output();
+
+        // Créez une réponse avec le contenu PDF
+        $response = new Response($pdfContent);
+
+        // Configurez les en-têtes pour indiquer qu'il s'agit d'un fichier PDF à télécharger
+        $response->headers->set('Content-Type', 'application/pdf');
+        $response->headers->set('Content-Disposition', 'inline; filename="reservation' . $reservation->getId() . '.pdf"');
+
+        return $response;
+    }
+
+    #[Route('/generate-all-pdf', name: 'app_reservation_generate_all_pdf')]
+    public function generateAllPdf(ReservationRepository $reservationRepository): Response
+    {
+        // Récupérer toutes les réservations disponibles
+        $reservations = $reservationRepository->findAll();
+    
+        // Créer une instance de Dompdf
+        $dompdf = new Dompdf();
+    
+        // Contenu HTML pour toutes les réservations
+        $html = '';
+        foreach ($reservations as $reservation) {
+            // Récupérer le contenu HTML pour une réservation
+            $reservationHtml = $this->renderView('reservation/pdfall.html.twig', [
+                'reservation' => $reservation,
+            ]);
+    
+            // Ajouter le contenu HTML de la réservation au contenu global
+            $html .= $reservationHtml;
+        }
+    
+        // Charger le contenu HTML dans Dompdf
+        $dompdf->loadHtml($html);
+    
+        // Réglez les options de Dompdf si nécessaire
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $dompdf->setOptions($options);
+    
+        // Rendre le PDF
+        $dompdf->render();
+    
+        // Récupérer le contenu du PDF
+        $pdfContent = $dompdf->output();
+    
+        // Créer une réponse avec le contenu PDF
+        $response = new Response($pdfContent);
+    
+        // Configurez les en-têtes pour indiquer qu'il s'agit d'un fichier PDF à télécharger
+        $response->headers->set('Content-Type', 'application/pdf');
+        $response->headers->set('Content-Disposition', 'inline; filename="all_reservations.pdf"');
+    
+        return $response;
     }
 }
