@@ -17,6 +17,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+use Gregwar\CaptchaBundle\Type\CaptchaType;
+use Symfony\Component\Form\FormError;
 
 class RegistrationController extends AbstractController
 {
@@ -33,8 +35,15 @@ class RegistrationController extends AbstractController
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
-
+   
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $captcha = $form->get('captcha')->getData();
+            $isCaptchaValid = $this->isCsrfTokenValid('captcha', $captcha);
+            if (!$isCaptchaValid) {
+                $form->get('captcha')->addError(new FormError('Invalid CAPTCHA'));
+                // Handle CAPTCHA validation failure, maybe return a response with an error message
+            }
             // encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(

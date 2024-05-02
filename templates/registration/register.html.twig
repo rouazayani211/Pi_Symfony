@@ -26,7 +26,11 @@ color:#000;
 body ,.btn{
 background-color:	#222831;
 }
-
+.form-capatcha{
+    display:flex;
+   
+    align-items:center;
+}
   
   
   </style>
@@ -137,6 +141,9 @@ background-color:	#222831;
 
 <div class="form-group">
     {{ form_row(registrationForm.agreeTerms) }}
+</div>
+<div class="form-capatcha">
+    {{ form_row(registrationForm.captcha) }}
 </div>
     
                          

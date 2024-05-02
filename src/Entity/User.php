@@ -7,8 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Doctrine\Common\Collections\Collection;
-use App\Entity\colab\projet;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
@@ -20,6 +19,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Assert\NotBlank(message: 'Email cannot be blank.')]
+    #[Assert\Email(message: 'Please enter a valid email address.')]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -29,24 +30,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
+
+    #[Assert\Length(min: 6, max: 4096, minMessage: 'Your password should be at least {{ limit }} characters.', maxMessage: 'Your password should be at most {{ limit }} characters.')]
     private ?string $password = null;
 
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Name cannot be blank.')]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Lastname cannot be blank.')]
     private ?string $lastname = null;
 
     #[ORM\Column(length: 255)]
     private ?string $wording = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: 'Age cannot be blank.')]
+    #[Assert\GreaterThan(value: 0, message: 'Age must be greater than 0.')]
     private ?int $age = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: 'CIN cannot be blank.')]
+    #[Assert\Length(min: 8, max: 8, exactMessage: 'CIN must be exactly 8 digits.')]
+    #[Assert\Type(type: 'numeric', message: 'CIN must be numeric.')]
     private ?int $cin = null;
 
     public function getId(): ?int
@@ -209,6 +219,4 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
-
 }

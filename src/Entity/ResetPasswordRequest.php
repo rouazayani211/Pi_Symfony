@@ -6,6 +6,7 @@ use App\Repository\ResetPasswordRequestRepository;
 use Doctrine\ORM\Mapping as ORM;
 use SymfonyCasts\Bundle\ResetPassword\Model\ResetPasswordRequestInterface;
 use SymfonyCasts\Bundle\ResetPassword\Model\ResetPasswordRequestTrait;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ResetPasswordRequestRepository::class)]
 class ResetPasswordRequest implements ResetPasswordRequestInterface
@@ -32,6 +33,9 @@ class ResetPasswordRequest implements ResetPasswordRequestInterface
         return $this->id;
     }
 
+    /**
+     * @Assert\NotNull
+     */
     public function getUser(): object
     {
         return $this->user;

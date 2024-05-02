@@ -96,6 +96,18 @@ public function searchUser(Request $request): Response
     ]);
 }
 
+
+#[Route('/sort-by-last-name', name: 'listuserssorted')]
+    public function sortlistuser(UserRepository $userRepository): Response
+    {
+        // Fetch users from the repository in alphabetical order
+        $users = $userRepository->findBy([], ['lastname' => 'ASC']);
+    
+        return $this->render('admin/list_users.html.twig', [
+            'user' => $users,
+        ]);
+    }
+
 }
 
 

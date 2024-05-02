@@ -78,6 +78,21 @@
     .search-button:hover {
         background-color: #0056b3; /* Darker shade on hover */
     }
+
+
+     .sort-button {
+        padding: 8px 15px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .sort-button:hover {
+        background-color: #0056b3; /* Darker shade on hover */
+    }
      .a:hover {
        
     }
@@ -98,17 +113,18 @@
 }
 </style>
 <br>
-   <h1>Liste Des Utilisateurs</h1>
+   <h1>Users list</h1>
 
     <br>
         <!-- Ajout du formulaire de recherche -->
         <form action="{{ path('search_user') }}" method="GET" style="padding:0px;">
-           <input class="search-input" type="text" name="name" placeholder="Search by name" >
-           <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+           <input class="search-input" type="text" name="name" placeholder="Search by FirstName" >
         <button class="search-button" type="submit">Search</button>
+        
+   <button class="sort-button" ><a href="{{ path('listuserssorted') }}" style="color:white;">Sort By Last Name</a></button>
 
         </form>
-
+     
         <table class="styled-table">
             <thead>
             <tr>
