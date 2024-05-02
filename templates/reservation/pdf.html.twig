@@ -1,38 +1,59 @@
-{# templates/reservation/pdf_template.html.twig #}
-
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
+    <!-- Ajout du titre "Score Track" -->
+        <div class="title">
+            <h2>Score Track</h2>
+        </div>
     <title>Réservation</title>
     <style>
         /* Styles généraux */
         body {
             font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
+            background-color: #ffffff; /* Fond blanc */
             margin: 0;
             padding: 0;
-            }
+        }
         .container {
             width: 80%;
             margin: 0 auto;
-            background-color: #fff;
             padding: 20px;
             box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+            background-color: #f2f2f2; /* Fond gris clair */
         }
         .header {
             text-align: center;
             margin-bottom: 20px;
         }
+        /* Ajout du titre "Score Track" en rouge vif */
+        .title {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ff0000; /* Rouge vif */
+            font-size: 24px; /* Taille du texte */
+        }
         /* Styles pour les détails de la réservation */
         .reservation-details {
-            margin-top: 50px;
+            margin-top: 20px; /* Réduire un peu l'espace au-dessus de la table */
         }
-        .reservation-details p {
-            margin-bottom: 10px;
+        .reservation-details table {
+            width: 100%;
+            border-collapse: collapse;
         }
-        .reservation-details strong {
-            font-weight: bold;
+        .reservation-details th,
+        .reservation-details td {
+            border: 1px solid #ff0000; /* Bordures rouges vives */
+            padding: 10px; /* Augmenter la taille de la cellule */
+            text-align: left;
+        }
+        .reservation-details th {
+            background-color: #ff6666; /* Fond rouge vif pour les en-têtes */
+            color: #ffffff; /* Texte blanc pour les en-têtes */
+        }
+        /* Utiliser une couleur plus douce pour le fond des cellules */
+        .reservation-details td {
+            background-color: #ffcccc; /* Couleur de fond rouge plus douce */
         }
     </style>
 </head>
@@ -41,11 +62,26 @@
         <div class="header">
             <h1>Réservation</h1>
         </div>
+       
         <div class="reservation-details">
-            <p><strong>ID :</strong> {{ reservation.id }}</p>
-            <p><strong>Date de Reservation :</strong> {{ reservation.dateDeReservation|date('Y-m-d') }}</p>
-            <p><strong>Nombre de Ticket :</strong> {{ reservation.nombreTicket }}</p>
-            <p><strong>Statut :</strong> {{ reservation.statutReservation }}</p>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <td>{{ reservation.id }}</td>
+                </tr>
+                <tr>
+                    <th>Date de Reservation</th>
+                    <td>{{ reservation.dateDeReservation|date('Y-m-d') }}</td>
+                </tr>
+                <tr>
+                    <th>Nombre de Ticket</th>
+                    <td>{{ reservation.nombreTicket }}</td>
+                </tr>
+                <tr>
+                    <th>Statut</th>
+                    <td>{{ reservation.statutReservation }}</td>
+                </tr>
+            </table>
         </div>
     </div>
 </body>

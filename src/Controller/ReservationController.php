@@ -20,6 +20,7 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Knp\Component\Pager\PaginatorInterface;
+use App\Repository\TicketRepository;
 
 #[Route('/reservation')]
 class ReservationController extends AbstractController
@@ -299,4 +300,30 @@ class ReservationController extends AbstractController
     
         return $response;
     }
+
+    #[Route('/calendarApi', name: 'reservation_calendarApi')]
+    public function calendarApi(ReservationRepository $reservationRepository): Response
+    {
+        // Récupérer les dates de réservation et d'événement depuis la base de données
+        $reservations = $reservationRepository->findAll();
+       // $eventDates = $ticketRepository->getAllEventDates();
+            $rdvs =[];
+            foreach($reservations as $reservation)
+            {
+                $dateDeReservation = $reservation->getDateDeReservation();
+                $dateReservationFormatted = $dateDeReservation ? $dateDeReservation->format('Y-m-d') : null;
+    
+                $rdvs[] = [
+                    "id"=>(int)$reservation->getId(),
+                    "dateDeReservation"=>$dateReservationFormatted,
+                    "nombreTicket"=>(int)$reservation->getNombreTicket(),
+                    "statutReservation"=>$reservation->getStatutReservation(),
+                    "idUser"=>(int)$reservation->getIdUser()
+                ];
+            }
+        $data =json_encode($rdvs);
+        return $this->render('reservation/calendar.html.twig', compact('data'));
+    }
+
+    
 }

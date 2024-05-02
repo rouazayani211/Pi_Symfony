@@ -45,4 +45,11 @@ class TicketRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+public function getAllEventDates(): array
+{
+    return $this->createQueryBuilder('t')
+        ->select('t.dateEvenement')
+        ->getQuery()
+        ->getResult();
+}
 }

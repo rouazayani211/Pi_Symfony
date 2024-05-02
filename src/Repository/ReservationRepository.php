@@ -45,4 +45,11 @@ class ReservationRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+public function getAllReservationDates(): array
+{
+    return $this->createQueryBuilder('r')
+        ->select('r.dateDeReservation')
+        ->getQuery()
+        ->getResult();
+}
 }

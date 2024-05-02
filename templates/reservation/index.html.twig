@@ -33,9 +33,11 @@
         </div>
         <a href="{{ path('app_reservation_new') }}" class="btn btn-success">Create new</a>
         <a href="{{ path('app_reservation_generate_all_pdf') }}" class="btn btn-dark"> PDF ALL</a> 
+        <a href="{{ path('reservation_calendarApi') }}" class="btn btn-dark"> Calendrier</a> 
         {# Afficher les liens de pagination #}
         <div class="pagination">
-            {{ knp_pagination_render(reservation) }}
-        </div>       
+            {{ knp_pagination_render(reservations) }}
+        </div> 
+              
     </div>
 {% endblock %}

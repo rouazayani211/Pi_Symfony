@@ -38,6 +38,9 @@
             "./migrations/.gitignore"
         ]
     },
+    "hexaequo/currency-converter-bundle": {
+        "version": "v1.0.3"
+    },
     "knplabs/knp-paginator-bundle": {
         "version": "v5.9.0"
     },
