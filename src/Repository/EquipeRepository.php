@@ -20,6 +20,7 @@ class EquipeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Equipe::class);
     }
+<<<<<<< HEAD
     public function findByNom(string $nom): array
     {
         // Create a query using Doctrine QueryBuilder
@@ -29,6 +30,8 @@ class EquipeRepository extends ServiceEntityRepository
             ->getQuery() // Generate the query
             ->getResult(); // Execute and return the result
     }
+=======
+>>>>>>> c0a6901e20af18834aaf204d50cd2c2b74f48da8
 
 //    /**
 //     * @return Equipe[] Returns an array of Equipe objects

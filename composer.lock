@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "e97c379400df57e2526ccba6d3107298",
+=======
+    "content-hash": "5ee66c88022213c2bb1e1d2a51294f2e",
+>>>>>>> c0a6901e20af18834aaf204d50cd2c2b74f48da8
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1535,6 +1539,7 @@
             "time": "2023-10-06T06:47:41+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "knplabs/knp-components",
             "version": "v3.6.0",
             "source": {
@@ -1770,6 +1775,17 @@
             },
             "dist": {
                 "type": "zip",
+=======
+            "name": "monolog/monolog",
+            "version": "2.9.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Seldaek/monolog.git",
+                "reference": "437cb3628f4cf6042cc10ae97fc2b8472e48ca1f"
+            },
+            "dist": {
+                "type": "zip",
+>>>>>>> c0a6901e20af18834aaf204d50cd2c2b74f48da8
                 "url": "https://api.github.com/repos/Seldaek/monolog/zipball/437cb3628f4cf6042cc10ae97fc2b8472e48ca1f",
                 "reference": "437cb3628f4cf6042cc10ae97fc2b8472e48ca1f",
                 "shasum": ""
@@ -1861,6 +1877,7 @@
                 }
             ],
             "time": "2023-10-27T15:25:26+00:00"
+<<<<<<< HEAD
         },
         {
             "name": "phenx/php-font-lib",
@@ -1951,6 +1968,8 @@
                 "source": "https://github.com/dompdf/php-svg-lib/tree/0.5.4"
             },
             "time": "2024-04-08T12:52:34+00:00"
+=======
+>>>>>>> c0a6901e20af18834aaf204d50cd2c2b74f48da8
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -2418,6 +2437,7 @@
             "time": "2021-07-14T16:41:46+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "sabberworm/php-css-parser",
             "version": "v8.5.1",
             "source": {
@@ -2492,6 +2512,17 @@
             },
             "dist": {
                 "type": "zip",
+=======
+            "name": "sensio/framework-extra-bundle",
+            "version": "v6.2.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sensiolabs/SensioFrameworkExtraBundle.git",
+                "reference": "2f886f4b31f23c76496901acaedfedb6936ba61f"
+            },
+            "dist": {
+                "type": "zip",
+>>>>>>> c0a6901e20af18834aaf204d50cd2c2b74f48da8
                 "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/2f886f4b31f23c76496901acaedfedb6936ba61f",
                 "reference": "2f886f4b31f23c76496901acaedfedb6936ba61f",
                 "shasum": ""

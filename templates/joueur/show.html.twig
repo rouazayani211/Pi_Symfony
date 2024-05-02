@@ -4,6 +4,7 @@
 
 {% block body %}
     <h1>Joueur</h1>
+<<<<<<< HEAD
      <table class="table">
         <tbody>
             <tr>
@@ -25,10 +26,31 @@
                 <td>{{ joueur.numero }}</td>
                 <td>{{ joueur.position }}</td>
                 <td>{{ joueur.id_equipe }}</td>
+=======
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ joueur.id }}</td>
+                <th>Nom</th>
+                <td>{{ joueur.nom }}</td>
+                <th>Preom</th>
+                <td>{{ joueur.prenom }}</td>
+                <th>Age</th>
+                <td>{{ joueur.age }}</td>
+                <th>Numero</th>
+                <td>{{ joueur.numero }}</td>
+                <th>position</th>
+                <td>{{ joueur.position }}</td>
+                <th>equipe</th>
+                <td>{{ joueur.id_Equipe }}</td>
+>>>>>>> c0a6901e20af18834aaf204d50cd2c2b74f48da8
             </tr>
         </tbody>
     </table>
 
+<<<<<<< HEAD
     <a href="{{ path('app_joueur_index') }}" class="btn btn-secondary">back to list</a>
 
    
@@ -36,4 +58,11 @@
         Summary from Wikipédia
     </a>
    
+=======
+    <a href="{{ path('app_joueur_index') }}">back to list</a>
+
+    <a href="{{ path('app_joueur_edit', {'id': joueur.id}) }}">edit</a>
+
+    {{ include('joueur/_delete_form.html.twig') }}
+>>>>>>> c0a6901e20af18834aaf204d50cd2c2b74f48da8
 {% endblock %}

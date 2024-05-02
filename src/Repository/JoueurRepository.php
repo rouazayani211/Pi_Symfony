@@ -21,6 +21,7 @@ class JoueurRepository extends ServiceEntityRepository
         parent::__construct($registry, Joueur::class);
     }
 
+<<<<<<< HEAD
     public function findByName(string $name)
     {
         return $this->createQueryBuilder('j')
@@ -31,6 +32,8 @@ class JoueurRepository extends ServiceEntityRepository
     }
 
 
+=======
+>>>>>>> c0a6901e20af18834aaf204d50cd2c2b74f48da8
 //    /**
 //     * @return Joueur[] Returns an array of Joueur objects
 //     */

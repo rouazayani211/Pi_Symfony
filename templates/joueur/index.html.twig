@@ -3,6 +3,7 @@
 {% block title %}Joueur index{% endblock %}
 
 {% block body %}
+<<<<<<< HEAD
 <div class="search-bar">
     <form class="search-form d-flex align-items-center" method="GET" action="{{ path('app_joueur_index') }}">
         <input type="text" name="query" placeholder="Search" value="{{ currentQuery }}" title="Enter search keyword">
@@ -68,4 +69,46 @@
     </script> 
     <script type="text/javascript"src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> 
    <!--   <p>Vous pouvez traduire le contenu de cette page en sélectionnant une langue dans le menu déroulant.</p>-->
+=======
+    <h1>Joueur index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>nom</th>
+                <th>prenom</th>
+                <th>age</th>
+                <th>numero</th>
+                <th>position</th>
+                <th>idEquipe</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for joueur in joueurs %}
+            <tr>
+                <td>{{ joueur.id}}</td>
+                <td>{{ joueur.nom}}</td>
+                <td>{{ joueur.prenom}}</td>
+                <td>{{ joueur.age}}</td>
+                <td>{{ joueur.numero}}</td>
+                <td>{{ joueur.position}}</td>
+                <td>{{ joueur.id_Equipe}}</td>
+                
+                <td>
+                    <a href="{{ path('app_joueur_show', {'id': joueur.id}) }}">show</a>
+                    <a href="{{ path('app_joueur_edit', {'id': joueur.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_joueur_new') }}">Create new</a>
+>>>>>>> c0a6901e20af18834aaf204d50cd2c2b74f48da8
 {% endblock %}

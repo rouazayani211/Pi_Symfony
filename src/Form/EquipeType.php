@@ -22,7 +22,11 @@ class EquipeType extends AbstractType
                 'attr' => ['class' => 'form-control'],
                 'constraints' => [
                     new NotBlank(),
+<<<<<<< HEAD
                    
+=======
+                    new Type('string'),
+>>>>>>> c0a6901e20af18834aaf204d50cd2c2b74f48da8
                 ]
             ])
             ->add('region', TextType::class, [
@@ -30,7 +34,11 @@ class EquipeType extends AbstractType
                 'attr' => ['class' => 'form-control'],
                 'constraints' => [
                     new NotBlank(),
+<<<<<<< HEAD
                     
+=======
+                    new Type('string'),
+>>>>>>> c0a6901e20af18834aaf204d50cd2c2b74f48da8
                 ]
             ])
             ->add('ligue', TextType::class, [
@@ -38,7 +46,11 @@ class EquipeType extends AbstractType
                 'attr' => ['class' => 'form-control'],
                 'constraints' => [
                     new NotBlank(),
+<<<<<<< HEAD
                     
+=======
+                    new Type('string'),
+>>>>>>> c0a6901e20af18834aaf204d50cd2c2b74f48da8
                 ]
             ])
             ->add('classement', IntegerType::class, [
@@ -47,7 +59,16 @@ class EquipeType extends AbstractType
                 'constraints' => [
                     new NotBlank(),
                     new Type('integer'),
+<<<<<<< HEAD
                     
+=======
+                    new Range([
+                        'min' => 1,
+                        'max' => 20,
+                        'minMessage' => 'Le classement doit être supérieur ou égal à {{ limit }}.',
+                        
+                    ]),
+>>>>>>> c0a6901e20af18834aaf204d50cd2c2b74f48da8
                 ]
             ]);
     }

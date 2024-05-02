@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+<<<<<<< HEAD
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
@@ -21,10 +22,13 @@ use Symfony\Component\HttpClient\HttpClient;
 
 
 
+=======
+>>>>>>> c0a6901e20af18834aaf204d50cd2c2b74f48da8
 #[Route('/equipe')]
 class EquipeController extends AbstractController
 {
     #[Route('/front', name: 'app_equipe_front', methods: ['GET'])]
+<<<<<<< HEAD
     public function front(Request $request,EquipeRepository $equipeRepository): Response
     {
         $query = $request->query->get('query', '');
@@ -87,6 +91,20 @@ class EquipeController extends AbstractController
 
         return $this->render('equipe/index.html.twig', [
             'pagination' => $pagination,
+=======
+    public function front(EquipeRepository $equipeRepository): Response
+    {
+        return $this->render('equipefront.html.twig', [
+            'equipes' => $equipeRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/', name: 'app_equipe_index', methods: ['GET'])]
+    public function index(EquipeRepository $equipeRepository): Response
+    {
+        return $this->render('equipe/index.html.twig', [
+            'equipes' => $equipeRepository->findAll(),
+>>>>>>> c0a6901e20af18834aaf204d50cd2c2b74f48da8
         ]);
     }
 
@@ -110,7 +128,11 @@ class EquipeController extends AbstractController
         ]);
     }
 
+<<<<<<< HEAD
     #[Route('/equipe/{idEquipe}', name: 'app_equipe_show', methods: ['GET'])]
+=======
+    #[Route('/{idEquipe}', name: 'app_equipe_show', methods: ['GET'])]
+>>>>>>> c0a6901e20af18834aaf204d50cd2c2b74f48da8
     public function show(Equipe $equipe): Response
     {
         return $this->render('equipe/show.html.twig', [
@@ -146,6 +168,7 @@ class EquipeController extends AbstractController
 
         return $this->redirectToRoute('app_equipe_index', [], Response::HTTP_SEE_OTHER);
     }
+<<<<<<< HEAD
 
     #[Route('/download', name: 'app_equipe_download_pdf', methods: ['GET'])]
     public function downloadPdf(EquipeRepository $equipeRepository): Response
@@ -352,4 +375,6 @@ class EquipeController extends AbstractController
 
    
 
+=======
+>>>>>>> c0a6901e20af18834aaf204d50cd2c2b74f48da8
 }

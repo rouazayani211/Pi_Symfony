@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+<<<<<<< HEAD
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
@@ -22,10 +23,13 @@ use Pagerfanta\Pagerfanta;
 use Knp\Component\Pager\PaginatorInterface;
 
 
+=======
+>>>>>>> c0a6901e20af18834aaf204d50cd2c2b74f48da8
 #[Route('/joueur')]
 class JoueurController extends AbstractController
 {
     #[Route('/front', name: 'app_joueur_front', methods: ['GET'])]
+<<<<<<< HEAD
     public function front(Request $request, JoueurRepository $joueurRepository): Response
     {
         $query = $request->query->get('query', ''); // Retrieve the search query, defaulting to an empty string
@@ -58,10 +62,17 @@ class JoueurController extends AbstractController
     {
         return $this->render('joueurfront_show.html.twig', [
             'joueur' => $joueur,
+=======
+    public function front(JoueurRepository $joueurRepository): Response
+    {
+        return $this->render('joueurfront.html.twig', [
+            'joueurs' => $joueurRepository->findAll(),
+>>>>>>> c0a6901e20af18834aaf204d50cd2c2b74f48da8
         ]);
     }
 
     #[Route('/', name: 'app_joueur_index', methods: ['GET'])]
+<<<<<<< HEAD
     public function index(
         Request $request,
         JoueurRepository $joueurRepository,
@@ -98,6 +109,15 @@ class JoueurController extends AbstractController
     }
 
 
+=======
+    public function index(JoueurRepository $joueurRepository): Response
+    {
+        return $this->render('joueur/index.html.twig', [
+            'joueurs' => $joueurRepository->findAll(),
+        ]);
+    }
+
+>>>>>>> c0a6901e20af18834aaf204d50cd2c2b74f48da8
     #[Route('/new', name: 'app_joueur_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -154,6 +174,7 @@ class JoueurController extends AbstractController
 
         return $this->redirectToRoute('app_joueur_index', [], Response::HTTP_SEE_OTHER);
     }
+<<<<<<< HEAD
 
     #[Route('/download', name: 'app_joueur_download', methods: ['GET'])]
 public function download(EntityManagerInterface $entityManager): Response
@@ -293,4 +314,6 @@ public function summaryFront(string $nom, JoueurRepository $joueurRepository): R
     }
 
 
+=======
+>>>>>>> c0a6901e20af18834aaf204d50cd2c2b74f48da8
 }

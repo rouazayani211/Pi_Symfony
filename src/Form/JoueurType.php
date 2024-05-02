@@ -25,7 +25,15 @@ class JoueurType extends AbstractType
                 'attr' => ['class' => 'form-control'],
                 'constraints' => [
                     new NotBlank(),
+<<<<<<< HEAD
                  
+=======
+                    new Type('string'),
+                    new Regex([
+                        'pattern' => '/^[a-zA-Z\s]*$/',
+                       
+                    ])
+>>>>>>> c0a6901e20af18834aaf204d50cd2c2b74f48da8
                 ]
             ])
             ->add('prenom', TextType::class, [
@@ -33,7 +41,15 @@ class JoueurType extends AbstractType
                 'attr' => ['class' => 'form-control'],
                 'constraints' => [
                     new NotBlank(),
+<<<<<<< HEAD
                    
+=======
+                    new Type('string'),
+                    new Regex([
+                        'pattern' => '/^[a-zA-Z\s]*$/',
+                       
+                    ])
+>>>>>>> c0a6901e20af18834aaf204d50cd2c2b74f48da8
                 ]
             ])
             ->add('age', IntegerType::class, [
@@ -41,7 +57,17 @@ class JoueurType extends AbstractType
                 'attr' => ['class' => 'form-control'],
                 'constraints' => [
                     new NotBlank(),
+<<<<<<< HEAD
                     
+=======
+                    new Type('integer'),
+                    new Range([
+                        'min' => 15,
+                        'max' => 50,
+                      
+                   
+                    ]),
+>>>>>>> c0a6901e20af18834aaf204d50cd2c2b74f48da8
                 ]
             ])
             ->add('numero', IntegerType::class, [
@@ -49,7 +75,17 @@ class JoueurType extends AbstractType
                 'attr' => ['class' => 'form-control'],
                 'constraints' => [
                     new NotBlank(),
+<<<<<<< HEAD
                    
+=======
+                    new Type('integer'),
+                    new Range([
+                        'min' => 1,
+                        'max' => 99,
+                        
+                       
+                    ]),
+>>>>>>> c0a6901e20af18834aaf204d50cd2c2b74f48da8
                 ]
             ])
             ->add('position', TextType::class, [
@@ -57,7 +93,15 @@ class JoueurType extends AbstractType
                 'attr' => ['class' => 'form-control'],
                 'constraints' => [
                     new NotBlank(),
+<<<<<<< HEAD
                    
+=======
+                    new Type('string'),
+                    new Regex([
+                        'pattern' => '/^[a-zA-Z\s]*$/',
+                        
+                    ])
+>>>>>>> c0a6901e20af18834aaf204d50cd2c2b74f48da8
                 ]
             ])
             ->add('equipe', EntityType::class, [
