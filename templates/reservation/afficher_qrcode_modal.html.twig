@@ -1,0 +1,26 @@
+
+<!-- afficher_qrcode_modal.html.twig -->
+<div class="modal fade" id="qrCodeModal{{ reservation.id }}" tabindex="-1" role="dialog" aria-labelledby="qrCodeModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-color: #f8f9fa;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="qrCodeModalLabel" style="color: #343a40;">QR Code - {{ reservation.id }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {% if qrCodeData is defined %}
+                    <img src="{{ qrCodeData }}" alt="QR Code - {{ reservation.id }}" style="max-width: 100%; height: auto;">
+                {% else %}
+                    <p style="color: #6c757d;">QR code data not available.</p>
+                {% endif %}
+            </div>
+            <div class="modal-footer">
+                <a href="{{ path('app_reservation_index') }}" class="btn btn-secondary btn-block">Back to List</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+

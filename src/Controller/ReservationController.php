@@ -21,6 +21,27 @@ use Dompdf\Options;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Knp\Component\Pager\PaginatorInterface;
 use App\Repository\TicketRepository;
+use Symfony\Component\PropertyAccess\PropertyAccess;
+use Endroid\QrCode\Color\Color;
+use Endroid\QrCodeBundle\Response\QrCodeResponse;
+use Endroid\QrCode\Writer\PngWriter;
+use Endroid\QrCode\Writer\PdfWriter;
+use Endroid\QrCode\Writer\Result\PdfResult;
+use Endroid\QrCode\Writer\SvgWriter;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelLow;
+use Endroid\QrCode\Logo\Logo;
+use Endroid\QrCode\Label\Label;
+use Endroid\QrCode\Label\Font\NotoSans;
+use Endroid\QrCode\Builder\BuilderInterface;
+use Endroid\QrCode\Color\ColorInterface;
+use Endroid\QrCode\Writer\Result\PngResult;
+use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelHigh;
+use Endroid\QrCode\Label\Alignment\LabelAlignmentCenter;
+use Endroid\QrCode\Label\Margin\Margin;
+use Endroid\QrCode\QrCode;
+
+
 
 #[Route('/reservation')]
 class ReservationController extends AbstractController
@@ -325,5 +346,38 @@ class ReservationController extends AbstractController
         return $this->render('reservation/calendar.html.twig', compact('data'));
     }
 
-    
+    #[Route('/reservation/afficherqrcode/{id}', name: 'app_reservation_afficher_qrcode', requirements: ['id' => '\d+'])]
+    public function afficherQrCode(Reservation $reservation, BuilderInterface $qrCodeBuilder): Response
+    {
+        $qrCodeContent = json_encode([
+            'idReservation' => $reservation->getId(),
+            'idUser' => $reservation->getIdUser(),
+            'Datedereservation' => $reservation->getDateDeReservation(),
+            'StatutCommande' => $reservation->getStatutReservation(),
+            'NombreTicket' => $reservation->getNombreTicket(),
+        ]);
+
+        $url = 'Les proprietes de la reservation sont ' . $qrCodeContent;
+        $label = 'QR Code de la reservation ' . $reservation->getId();
+
+        $qrCode = $qrCodeBuilder
+            ->data($url)
+            ->encoding(new Encoding('UTF-8'))
+            ->size(400)
+            ->margin(10)
+            ->labelText($label)
+            ->labelMargin(new Margin(15, 5, 5, 5))
+            ->build();
+
+        // Convert QR code to data URI format
+        $qrCodeData = $qrCode->getDataUri();
+
+        // Return the response with the QR code data URI
+        return $this->render('reservation/afficher_qrcode_modal.html.twig', [
+            'qrCodeData' => $qrCodeData,
+            'reservation' => $reservation,
+        ]);
+    }
+
+        
 }

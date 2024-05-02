@@ -38,6 +38,9 @@
             "./migrations/.gitignore"
         ]
     },
+    "endroid/qr-code-bundle": {
+        "version": "5.0.1"
+    },
     "hexaequo/currency-converter-bundle": {
         "version": "v1.0.3"
     },
