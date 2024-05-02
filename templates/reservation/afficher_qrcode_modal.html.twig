@@ -1,7 +1,52 @@
+{% extends 'base.html.twig' %}
 
-<!-- afficher_qrcode_modal.html.twig -->
+{% block title %}QR Code{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        body {
+            background-color: #ff6666; /* Vibrant background color */
+            font-family: 'Arial', sans-serif; /* Set font family */
+            color: #343a40; /* Set text color */
+            margin: 0;
+            padding: 0;
+        }
+
+        .modal-content {
+            background-color: #f8f9fa; /* Light background color for modal content */
+            border-radius: 10px; /* Rounded corners for modal content */
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1); /* Shadow effect */
+            padding: 30px;
+            text-align: center;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        .modal-title {
+            color: #343a40; /* Title color */
+            margin-bottom: 20px; /* Spacing below title */
+        }
+
+        .modal-body p {
+            color: #6c757d; /* Text color in modal body */
+        }
+
+        .btn-secondary {
+            background-color: #343a40; /* Background color for button */
+            color: #fff; /* Text color for button */
+            border: none; /* Remove button border */
+        }
+
+        .btn-secondary:hover {
+            background-color: #212529; /* Darker background color on hover */
+        }
+    </style>
+{% endblock %}
+
+
+{% block body %}
 <div class="modal fade" id="qrCodeModal{{ reservation.id }}" tabindex="-1" role="dialog" aria-labelledby="qrCodeModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog d-flex justify-content-center align-items-center" role="document">
         <div class="modal-content" style="background-color: #f8f9fa;">
             <div class="modal-header">
                 <h5 class="modal-title" id="qrCodeModalLabel" style="color: #343a40;">QR Code - {{ reservation.id }}</h5>
@@ -9,7 +54,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body text-center">
                 {% if qrCodeData is defined %}
                     <img src="{{ qrCodeData }}" alt="QR Code - {{ reservation.id }}" style="max-width: 100%; height: auto;">
                 {% else %}
@@ -22,5 +67,4 @@
         </div>
     </div>
 </div>
-
-
+{% endblock %}
