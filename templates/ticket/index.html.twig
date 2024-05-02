@@ -17,6 +17,7 @@
                             <p class="card-text">Status: {{ ticket.statutTicket }}</p>
                             <a href="{{ path('app_ticket_show', {'id': ticket.id}) }}" class="btn btn-primary">Show</a>
                             <a href="{{ path('app_ticket_edit', {'id': ticket.id}) }}" class="btn btn-secondary">Edit</a>
+                            <a href="{{ path('ticket_details', {'id': ticket.id}) }}" class="btn btn-dark">Convert</a>
                         </div>
                     </div>
                 </div>

@@ -14,6 +14,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Joli\JoliNotif\Notification;
 use Joli\JoliNotif\NotifierFactory;
+use Hexaequo\CurrencyConverterBundle\Converter;
+
 
 #[Route('/ticket')]
 class TicketController extends AbstractController
@@ -165,4 +167,33 @@ class TicketController extends AbstractController
 
         return $this->redirectToRoute('app_ticket_indexback', [], Response::HTTP_SEE_OTHER);
     }
+    #[Route('/ticket/{id}', name: 'ticket_details')]
+    public function myPage(int $id, Converter $converter): Response
+    {
+        // Récupérez l'événement à partir de la base de données en utilisant son nom
+        $ticket = $this->getDoctrine()->getRepository(Ticket::class)->findOneBy(['id' => $id]);
+
+        // Vérifiez si l'événement existe
+        if (!$ticket) {
+            throw $this->createNotFoundException('La ticket n\'existe pas.');
+        }
+
+        // Récupérez le prix de l'événement en TND
+        $totalPrix = $ticket->getPrix();
+
+        // Convertir le prix en euros
+        $prixEnEuros = $converter->convert($totalPrix, 'TND', 'EUR');
+        // Convertir le prix en dollars
+        $prixEnDollars = $converter->convert($totalPrix, 'TND', 'USD');
+        // Convertir le prix en yuan
+        $prixEnYuan = $converter->convert($totalPrix, 'TND', 'CNY');
+
+        // Passez les prix convertis à la vue Twig pour affichage
+        return $this->render('ticket/my_page.html.twig', [
+            'ticket' => $ticket,
+            'prixEnEuros' => $prixEnEuros,
+            'prixEnDollars' => $prixEnDollars,
+            'prixEnYuan' => $prixEnYuan,
+        ]);
+    } 
 }
