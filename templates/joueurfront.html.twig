@@ -14,13 +14,11 @@
 
 <body>
   <div class="site-wrap">
-    <header class="site-navbar py-2" role="banner"> <!-- Reduced top padding -->
-      <div class="container-fluid"> <!-- Changed to container-fluid for full-width -->
-        <div class="d-flex align-items-center justify-content-between"> <!-- Changed alignment -->
-          <div class="site-logo" style="margin: 0; padding: 0;"> <!-- Reset margin/padding -->
-            
-              <img src="{{ asset('images/logo20.png') }}" alt="Logo" style="width:200px; height:auto;">
-            </a>
+    <header class="site-navbar py-2" role="banner">
+      <div class="container-fluid">
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="site-logo" style="margin: 0; padding: 0;">
+            <img src="{{ asset('images/logo20.png') }}" alt="Logo" style="width:200px; height:auto;">
           </div>
           <nav class="site-navigation position-relative text-right" role="navigation">
             <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
@@ -72,11 +70,29 @@
               </tbody>
             </table>
             
-            <!-- Search Form -->
-            <form class="search-form d-flex align-items-center" method="GET" action="{{ path('app_joueur_front') }}">
-              <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-              <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-            </form>
+            <!-- Search Form and Sorting Button -->
+            <div class="d-flex justify-content-between">
+              <!-- Search form -->
+              <form class="search-form d-flex align-items-center" method="GET" action="{{ path('app_joueur_front') }}">
+                <input type="text" name="query" placeholder="Search" title="Enter search keyword" value="{{ currentQuery }}">
+                <button type="submit" title="Search">Search</button>
+              </form>
+              
+              <!-- Sort by Age button -->
+              <a href="{{ path('app_joueur_front', { 'sort': 'age', 'direction': currentSortDirection == 'asc' ? 'desc' : 'asc', 'query': currentQuery }) }}" class="btn btn-secondary" title="Sort by Age">
+                Sort by Age
+              </a>
+              <!--<p>Translate this page in your preferred language:</p>-->
+    <div id="google_translate_element"></div> 
+    <script type="text/javascript"> 
+    function googleTranslateElementInit() { 
+      new google.translate.TranslateElement({pageLanguage: 'fr'},'google_translate_element'); 
+    } 
+    </script> 
+    <script type="text/javascript"src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> 
+   <!--   <p>Vous pouvez traduire le contenu de cette page en sélectionnant une langue dans le menu déroulant.</p>-->
+            </div>
+
           </div>
         </div>
       </div>

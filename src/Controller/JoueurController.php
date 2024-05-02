@@ -26,10 +26,31 @@ use Knp\Component\Pager\PaginatorInterface;
 class JoueurController extends AbstractController
 {
     #[Route('/front', name: 'app_joueur_front', methods: ['GET'])]
-    public function front(JoueurRepository $joueurRepository): Response
+    public function front(Request $request, JoueurRepository $joueurRepository): Response
     {
+        $query = $request->query->get('query', ''); // Retrieve the search query, defaulting to an empty string
+        $sortField = $request->query->get('sort', 'nom'); // Default sort field is 'nom'
+        $sortDirection = $request->query->get('direction', 'asc'); // Default sort direction is ascending
+        
+        $joueurQueryBuilder = $joueurRepository->createQueryBuilder('j');
+        
+        if ($query) {
+            // If there's a search query, apply a filter to 'nom' or 'prenom'
+            $joueurQueryBuilder->where('j.nom LIKE :search OR j.prenom LIKE :search')
+                ->setParameter('search', '%' . $query . '%');
+        }
+    
+        // Apply sorting based on the specified field and direction
+        $joueurQueryBuilder->orderBy("j.$sortField", $sortDirection);
+    
+        // Execute the query and get the result
+        $joueurs = $joueurQueryBuilder->getQuery()->getResult();
+    
         return $this->render('joueurfront.html.twig', [
-            'joueurs' => $joueurRepository->findAll(),
+            'joueurs' => $joueurs,
+            'currentQuery' => $query, // Pass the current search query to the view
+            'currentSortField' => $sortField, // Pass the current sort field
+            'currentSortDirection' => $sortDirection, // Pass the current sort direction
         ]);
     }
     #[Route('/front/show/{id}', name: 'app_joueur_show_front', methods: ['GET'])]
