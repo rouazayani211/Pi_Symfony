@@ -1,0 +1,157 @@
+{% extends 'Front.html.twig' %}
+
+
+{% block title %}Your Cart{% endblock %}
+
+{% block content %}
+  <h1>Your Cart !</h1>
+  
+  {% if cart is empty %}
+  <div class="site-section bg-dark">
+    <div class="container">
+        <div class="row">
+            <div>
+                <div class="widget-next-match">
+                    <table class="table custom-table">
+                        <thead>
+                            <tr>
+                                <th>Order</th>
+                                <th>Product Name</th>
+                                <th>Description</th>
+                                <th>Prix</th>
+                                <th>Stock</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          <p>Your cart is empty.</p>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- .site-section -->
+  {% else %}
+  <div class="site-section bg-dark">
+    <div class="container">
+        <div class="row">
+            <div>
+                <div class="widget-next-match">
+                    <table class="table custom-table">
+                        <thead>
+                            <tr>
+                                <th>Order</th>
+                                <th>Product Name</th>
+                                <th>Description</th>
+                                <th>Prix</th>
+                                <th>Stock</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for produit in cart %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td><strong class="text-white">{{ produit.nom_produit }}</strong></td>
+                                <td>{{produit.description}}</td>
+                                <td>{{produit.prix}}</td>
+                                <td>{{produit.stock_disponible}}</td>
+                                <td>
+                                    <form action="{{ path('remove_from_cart', {'id': produit.id}) }}" method="post">
+                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                    </form>
+                                </td>     
+                                                      
+                              </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+                    <form action="{{ path('validate_order') }}" method="post">
+                        <button type="submit" class="btn btn-primary">Continue Validation</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- .site-section -->
+  {% endif %} 
+
+
+
+
+
+{# {% block title %}Your Cart{% endblock %}
+
+{% block body %}
+  <h1>Your Cart !</h1>
+  
+  {% if cart is empty %}
+  <div class="site-section bg-dark">
+    <div class="container">
+        <div class="row">
+            <div>
+                <div class="widget-next-match">
+                    <table class="table custom-table">
+                        <thead>
+                            <tr>
+                                <th>Order</th>
+                                <th>Product Name</th>
+                                <th>Description</th>
+                                <th>Prix</th>
+                                <th>Stock</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          <p>Your cart is empty.</p>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- .site-section -->
+  {% else %}
+  <div class="site-section bg-dark">
+    <div class="container">
+        <div class="row">
+            <div>
+                <div class="widget-next-match">
+                    <table class="table custom-table">
+                        <thead>
+                            <tr>
+                                <th>Order</th>
+                                <th>Product Name</th>
+                                <th>Description</th>
+                                <th>Prix</th>
+                                <th>Stock</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for produit in cart %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td><strong class="text-white">{{ produit.nom }}</strong></td>
+                                <td>{{produit.description}}</td>
+                                <td>{{produit.prix}}</td>
+                                <td>{{produit.stock_disponible}}</td>
+                                <td>
+                                    <form action="{{ path('remove_from_cart', {'id': produit.id}) }}" method="post">
+                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                    </form>
+                                </td>                            
+                              </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- .site-section -->
+  {% endif %}  #}
+
+{% endblock %}

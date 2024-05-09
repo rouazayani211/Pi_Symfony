@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Select Article to Modify{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>Select Article to Modify</h1>
+
+  <ul class="list-group">
+    {% for article in articles %}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        
+        <span>{{ article.title }} - {{ article.creationDate|date('Y-m-d') }} - {{ article.journalist.name }}</span>
+        
+        <a href="{{ path('article_modify', {'id': article.id}) }}"><span class="badge bg-primary rounded-pill">Modify</span></a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% endblock %}

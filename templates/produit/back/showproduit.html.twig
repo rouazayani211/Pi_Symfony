@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block content %}
+
+<main id="main" class="main">
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-11">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">View Product added</h5>
+
+              <!-- Default Table -->
+              <table class="table" id="dataTable">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Available stock</th>
+                                                        <th scope="col">Image</th>
+
+                    <th scope="col"><h5>Update</h5></th>
+                    <th scope="col"><h5>Delete</h5></th>
+                  </tr>
+                </thead>
+                 {% for produit in produit %}
+                <tbody>
+                  <tr class="event-row">
+                    <td>{{ produit.getId }}</td>
+                    <td>{{ produit.getNomProduit }}</td>
+                    <td>{{ produit.getPrix }}</td>
+                    <td>{{ produit.getDescription }}</td>
+                    <td>{{ produit.getStockDisponible }}</td>
+                                        <td>
+                                            {% if produit.getImageFile %}
+                                                <img src="{{ asset('uploads/' ~ produit.getImageFile) }}" alt="Product Image">
+                                            {% else %}
+                                                <p>No image uploaded</p>
+                                            {% endif %}
+                                        </td>
+                    <td>
+                      <a href="{{ path('editformproduit', {'id': produit.id}) }}">
+                          <button class="btn btn-primary"><i class="fas fa-pencil-alt"></i> Update Product</button>
+                      </a>
+                  </td>
+                    <td>
+                         <a href="{{ path('deleteproduit', {'id': produit.id}) }}">
+                                <button class="btn btn-primary"><i class="fas fa-trash"></i> Delete Product</button>
+                         </a>
+                    </td>
+                    
+                
+                  </tr>
+                </tbody>
+                {% endfor %}
+              </table>
+                     <a href="{{ path('addformproduit') }}">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Add Product <!-- Icône d'ajout -->
+                        </button>
+                    </a>
+                    <a href="{{ path('app_event_exportproduct_excel') }}">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-plus"></i>import excel <!-- Icône EXCLEl -->
+                        </button>
+                    </a>
+                    <a href="{{ path('app_Prodstats') }}">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-plus"></i>Show Product Statistics 
+                        </button>
+                    </a>
+
+              <!-- End Default Table Example -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+    $(document).ready(function () {
+        $('#example-search-input').on('input', function () {
+            var searchQuery = $(this).val().toLowerCase();
+            var noEventsRow = $('#noEventsRow');
+
+            $('.event-row').each(function () {
+                var eventRowText = $(this).text().toLowerCase();
+                $(this).toggle(eventRowText.includes(searchQuery));
+            });
+
+            noEventsRow.toggle($('.event-row:visible').length === 0);
+        });
+    });
+</script>
+
+  </main><!-- End #main -->
+
+{% endblock %}

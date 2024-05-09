@@ -1,0 +1,52 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}News{% endblock %}
+
+{% block body %}
+<form action="{{ path('app_home_page') }}" method="get">  <label for="keyword">Search:</label>
+    <input type="text" id="keyword" name="keyword" required>
+    <button type="submit">Search</button>
+</form>
+
+
+<form action="{{ path('app_home_page') }}" method="get">
+  <label for="startDate">Start Date:</label>
+  <input type="date" id="startDate" name="startDate">
+  <label for="endDate">End Date:</label>
+  <input type="date" id="endDate" name="endDate">
+  <button type="submit">Search</button>
+</form>
+
+<div class="sorting-options">
+      <a href="{{ path('app_home_page', {'sort': 'newest'}) }}" class="btn btn-outline-primary" style="margin-left:10px;">Newest first</a>
+      <a href="{{ path('app_home_page', {'sort': 'oldest'}) }}" class="btn btn-outline-primary">Oldest first</a>
+    </div>
+
+
+
+<div class="container">
+    <h1>NEWS</h1>
+
+    <div class="articles">
+        <h2>Latest Articles</h2>
+        {% if articles is not empty %}
+            <ul>
+                {% for article in articles %}
+                    <li>
+                        <div id="img-article">
+                            <img src="uploads/images/{{ article.imagePath }}" src="{{ article.imagePath }}" class="rounded-xl  shadow-xl" width="800" />
+                            <img src="{{ article.imagePath }}" src="{{ article.imagePath }}" class="rounded-xl  shadow-xl" width="800" />
+                        </div>
+                        <h3>{{ article.title }}</h3>
+                        <p>{{ article.content }}</p>
+                    </li>
+                    </br>
+                    </br>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No articles found.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

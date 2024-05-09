@@ -1,0 +1,29 @@
+{% extends 'Front.html.twig' %}
+
+
+{% block title %} Equipe{% endblock %}
+
+{% block body %}
+
+
+    <!-- Spacer to create additional gap -->
+    <div style="height: 100px;"></div> <!-- Spacer to ensure proper spacing -->
+
+    <!-- Main content section with margin-top to create more space -->
+    <div class="container content-spacing">
+      <h1>Résumé de {{ summary.title }}</h1>
+      <p><strong>Description:</strong> {{ summary.extract }}</p>
+      
+      <!-- Link back to the player details -->
+      <a class="btn btn-secondary" href="{{ path('app_joueur_show_front', {'id': joueur.id}) }}">Retour au joueur</a>
+    </div>
+
+    <!-- Footer section -->
+    <footer class="footer-section">
+      <div class="container"> 
+        <!-- Add footer content here -->
+      </div>
+    </footer>
+  </div>
+{% endblock %}
+

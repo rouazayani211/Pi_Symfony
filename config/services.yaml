@@ -4,8 +4,29 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    image_directory: '%kernel.project_dir%/public/uploads/images'
 
 services:
+    App\Entity\produit\Produitt:
+        autowire: true
+    App\Repository\event\EventsRepository: ~
+    App\Entity\Joueur: ~
+    App\Entity\Equipe: ~
+    App\Entity\Ticket: ~
+    App\Entity\Evenement: ~
+    App\Entity\Reservation: ~
+
+    App\Controller\LiveScoresController:
+        class: App\Controller\LiveScoresController
+
+    # Define your controller as a service
+    App\Controller\JournalistController:
+        tags: ['controller.service_arguments']
+
+    App\Controller\ImportArticlesController:
+        tags: ['controller.service_arguments']
+
+        
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
@@ -19,6 +40,3 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
-
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones

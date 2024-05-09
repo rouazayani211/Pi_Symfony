@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Joueur{% endblock %}
+
+{% block content %}
+    <h1>Joueur</h1>
+   {% if joueur is not null %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Âge</th>
+                <th>Numéro</th>
+                <th>Position</th>
+                <th>Équipe</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ joueur.id }}</td>
+                {% if joueur.nom is defined %} <!-- Vérifier si nom est défini -->
+                    <td>{{ joueur.nom }}</td>
+                {% else %}
+                    <td>N/A</td> <!-- Afficher N/A si nom n'est pas défini -->
+                {% endif %}
+                <td>{{ joueur.prenom }}</td>
+                <td>{{ joueur.age }}</td>
+                <td>{{ joueur.numero }}</td>
+                <td>{{ joueur.position }}</td>
+                <td>{{ joueur.id_equipe }}</td>
+            </tr>
+        </tbody>
+    </table>
+{% else %}
+    <p>Aucun joueur trouvé.</p>
+{% endif %}
+
+
+    <a href="{{ path('app_joueur_index') }}" class="btn btn-secondary">back to list</a>
+
+   
+<a href="{{ path('app_joueur_summary', {'nom': joueur.nom}) }}" class="btn btn-info">
+        Summary from Wikipédia
+    </a>
+   
+{% endblock %}

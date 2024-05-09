@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Terrain{% endblock %}
+
+{% block content %}
+<div class="row" style="display: flex;align-items: center;justify-content: center;margin-top: 150px;">
+
+    <div class="col-lg-6">
+
+    <h2>Create new Terrain</h2>
+
+    {{ include('terrain/_form.html.twig') }}
+        <div class="text">
+
+
+    <a href="{{ path('app_terrain_index') }}" class="btn btn-outline-secondary ml-2">back to list</a>
+
+    </div>
+{% endblock %}

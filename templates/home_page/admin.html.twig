@@ -1,0 +1,17 @@
+
+{% extends 'base2.html.twig' %}
+
+{% block title %}Admin functionalities{% endblock %}
+
+{% block body %}
+<ul style="list-style-type: none; margin-left: 400px; margin-top:100px; padding: 0; width: auto;"></li>
+<li ><a href="{{ path('article_add') }}" class="btn btn-outline-primary" style="display: block; margin-bottom:10px;">Add an article</a></li>
+<li><a href="{{ path('delete_article') }}" class="btn btn-outline-primary" style="display: block; margin-bottom:10px;">Delete an article</a></li>
+<li><a href="{{ path('article_select_to_modify') }}" class="btn btn-outline-primary" style="display: block; margin-bottom:10px;">Modify an article</a></li>
+<li><a href="{{ path('journalists_list') }}" class="btn btn-outline-primary" style="display: block; margin-bottom:10px;">List journalist</a></li>
+<li><a href="{{ path('journalist_add') }}" class="btn btn-outline-primary" style="display: block; margin-bottom:10px;">Add journalist</a></li>
+<li><a href="{{ path('modify_journalist_select') }}" class="btn btn-outline-primary" style="display: block; margin-bottom:10px;">Modify a journalist/source entry</a></li>
+<li><a href="{{ path('delete_journalist_select') }}" class="btn btn-outline-primary" style="display: block; margin-bottom:10px;">Delete a journalist/source entry</a></li>
+</ul>
+
+{% endblock %}

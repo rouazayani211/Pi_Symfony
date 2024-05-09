@@ -1,0 +1,165 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reservation index{% endblock %}
+
+{% block content %}
+    <h1>Reservation index</h1>
+
+    <button id="sortButton">Trier par date de réservation</button> <!-- Bouton de tri -->
+    <style>
+        #sortButton {
+          background-color: #4169E1; /* Bleu roi */
+          border: none; /* Supprimer la bordure */
+          color: white; /* Couleur du texte */
+          padding: 10px 20px; /* Espacement intérieur */
+          text-align: center; /* Alignement du texte */
+          text-decoration: none; /* Supprimer la décoration du texte */
+          display: inline-block; /* Affichage en ligne */
+          font-size: 16px; /* Taille de la police */
+          transition-duration: 0.4s; /* Durée de transition */
+          cursor: pointer; /* Curseur au survol */
+          border-radius: 8px; /* Arrondi des coins */
+        }
+    
+        #sortButton:hover {
+          background-color: #003171; /* Couleur de fond au survol */
+        }
+      </style>
+
+    <div class="form-group">
+        <label for="searchInput">Rechercher :</label>
+        <input type="text" class="form-control" id="searchInput">
+    </div>
+    <script>
+        document.getElementById('searchInput').addEventListener('input', function() {
+            var searchValue = this.value.toLowerCase().trim();
+            var rows = document.querySelectorAll('tbody tr');
+
+            rows.forEach(function(row) {
+                var idCell = row.querySelector('td:nth-child(1)').textContent.toLowerCase().trim(); // Colonne ID
+                var dateCell = row.querySelector('td:nth-child(2)').textContent.toLowerCase().trim(); // Colonne Date
+                var statusCell = row.querySelector('td:nth-child(4)').textContent.toLowerCase().trim(); // Colonne Statut
+
+                var matchesId = idCell.includes(searchValue);
+                var matchesDate = dateCell.includes(searchValue);
+                var matchesStatus = statusCell.includes(searchValue);
+
+                if (matchesId || matchesDate || matchesStatus) {
+                    row.style.display = ''; // Afficher la ligne si elle correspond à la recherche
+                } else {
+                    row.style.display = 'none'; // Masquer la ligne si elle ne correspond pas à la recherche
+                }
+            });
+        });
+
+        document.getElementById('sortButton').addEventListener('click', function() {
+            var rows = Array.from(document.querySelectorAll('tbody tr'));
+
+            rows.sort(function(rowA, rowB) {
+                var dateA = new Date(rowA.querySelector('td:nth-child(2)').textContent);
+                var dateB = new Date(rowB.querySelector('td:nth-child(2)').textContent);
+
+                return dateA - dateB;
+            });
+
+            var tbody = document.querySelector('tbody');
+            rows.forEach(function(row) {
+                tbody.appendChild(row);
+            });
+        });
+    </script>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>DateDeReservation</th>
+                <th>NombreTicket</th>
+                <th>StatutReservation</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reservation in reservations %}
+            <tr>
+                <td>{{ reservation.id }}</td>
+                <td>{{ reservation.dateDeReservation ? reservation.dateDeReservation|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ reservation.nombreTicket }}</td>
+                <td>{{ reservation.statutReservation }}</td>
+                <td>
+                    <a href="{{ path('app_reservation_showback', {'id': reservation.id}) }}">show</a>
+                    <a href="{{ path('app_reservation_editback', {'id': reservation.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_reservation_newback') }}">Create new</a>
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="card shadow-lg border-0">
+                    <h4 class="text-center mb-3">Statistique par Statut</h4>
+                        <div class="card-body">
+                            <canvas id="livreurChart" width="400" height="400"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var statuts = [];
+        var counts = {};
+
+        {% for reservation in reservations %}
+            var statut = "{{ reservation.statutReservation }}";
+            if (!counts[statut]) {
+                counts[statut] = 0;
+            }
+            counts[statut]++;
+        {% endfor %}
+
+        var data = {
+            labels: Object.keys(counts),
+            datasets: [{
+                data: Object.values(counts),
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(153, 102, 255, 0.5)',
+                    'rgba(255, 159, 64, 0.5)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        var ctx = document.getElementById('livreurChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    });</script>
+{% endblock %}

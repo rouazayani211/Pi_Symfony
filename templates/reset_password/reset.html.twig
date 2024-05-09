@@ -1,0 +1,94 @@
+<link rel="stylesheet" href="{{ asset('front/fonts/icomoon/style.css') }}">
+<link rel="stylesheet" href="{{ asset('front/css/bootstrap/bootstrap.css') }}">
+<link rel="stylesheet" href="{{ asset('front/css/jquery-ui.css') }}">
+<link rel="stylesheet" href="{{ asset('front/css/owl.carousel.min.css') }}">
+<link rel="stylesheet" href="{{ asset('front/css/owl.theme.default.min.css') }}">
+<link rel="stylesheet" href="{{ asset('front/css/jquery.fancybox.min.css') }}">
+<link rel="stylesheet" href="{{ asset('front/css/bootstrap-datepicker.css') }}">
+<link rel="stylesheet" href="{{ asset('front/fonts/flaticon/font/flaticon.css') }}">
+<link rel="stylesheet" href="{{ asset('front/css/aos.css') }}">
+
+{% block stylesheets %}
+    <style>
+        /* Reset password form styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color:	#222831;
+            display: flex;
+            justify-content: center; /* Centrer horizontalement */
+            align-items: center; /* Centrer verticalement */
+            height: 100vh; /* Hauteur de la fenêtre */
+            text-align: center; /* Aligner le contenu */
+        }
+
+        .container {
+            max-width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: left; /* Aligner le texte à gauche */
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .alert {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px; /* Espace entre les champs */
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        small {
+            color: #888;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Reset your password</h1>
+
+        {{ form_start(resetForm) }}
+            <div class="form-group">
+                {{ form_row(resetForm.plainPassword) }}
+                 <div style="color: red;">
+            {{ form_errors(resetForm.plainPassword) }}
+        </div>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary">Reset password</button>
+            </div>
+        {{ form_end(resetForm) }}
+    </div>
+{% endblock %}

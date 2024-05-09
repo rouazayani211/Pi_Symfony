@@ -1,0 +1,33 @@
+{% extends 'Front.html.twig' %}
+
+{% block title %}Ticket index{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row">
+            {% for ticket in tickets %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">{{ ticket.NumSiege }}</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Price: {{ ticket.prix }}</p>
+                            <p class="card-text">Event Date: {{ ticket.dateEvenement ? ticket.dateEvenement|date('Y-m-d H:i:s') : '' }}</p>
+                            <p class="card-text">Status: {{ ticket.statutTicket }}</p>
+                            <a href="{{ path('app_ticket_show', {'id': ticket.id}) }}" class="btn btn-primary">Show</a>
+                            <a href="{{ path('app_ticket_edit', {'id': ticket.id}) }}" class="btn btn-secondary">Edit</a>
+                            <a href="{{ path('ticket_details', {'id': ticket.id}) }}" class="btn btn-dark">Convert</a>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-md-12">
+                    <p>No records found</p>
+                </div>
+            {% endfor %}
+        </div>
+        <a href="{{ path('app_ticket_new') }}" class="btn btn-success">Create new</a>
+
+    </div>
+{% endblock %}

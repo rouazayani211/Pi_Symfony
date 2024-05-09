@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+    <style>
+     
+        .error {
+    color: red; /* Couleur du texte */
+    font-size: 14px; /* Taille de la police */
+    font-weight: bold; /* Texte en gras */
+}
+        
+    </style>
+
+
+
+        
+
+        <div class="col-xl-6">
+          <div class="card p-4">
+              <div class="row gy-4">
+
+                          {{ form_start(f,{'attr': {'novalidate': 'novalidate'}} ) }}
+
+
+                <div class="col-md-6 form-control">
+            {{ form_label(f.prix, "Price") }}
+            {{ form_widget(f.prix) }}
+           <div class="error">{{ form_errors(f.prix) }}</div>
+
+            
+        </div>
+
+        <div class="col-md-6 form-control">
+            {{ form_label(f.nom_produit, "Product Name") }}
+            {{ form_widget(f.nom_produit) }}
+              <div class="error">{{ form_errors(f.nom_produit) }}</div>
+        </div>
+
+        <div class="col-md-6 form-control">
+            {{ form_label(f.description, "Description") }}
+            {{ form_widget(f.description) }}
+            <div class="error">{{ form_errors(f.description) }}</div>
+                </div>
+
+           <div class="col-md-6 form-control">
+            {{ form_label(f.stock_disponible, "Available stock") }}
+            {{ form_widget(f.stock_disponible) }}
+            <div class="error">{{ form_errors(f.stock_disponible) }}</div>
+                 </div>
+
+          {{ form_widget(f.submit, {'attr': {'class': 'btn btn-primary','style': 'font-size: 16px;'}, 'label': '<i class="fas fa-save"></i> Update Product', 'label_html': true}) }}
+          {{ form_end(f) }}
+                  
+                </div>
+
+              </div>
+          </div>
+
+        </div>
+
+      </div>
+
+
+     {% endblock %}
+

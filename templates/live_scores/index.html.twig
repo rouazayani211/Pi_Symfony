@@ -1,0 +1,18 @@
+{% extends 'Front.html.twig' %}
+
+{% block title %}Live scores{% endblock %}
+
+
+{% block body %}
+{% for match in liveScores %}
+  <div class="match">
+    <div class="match-teams">
+  
+       <span style="color:orange;">match:{{ match.name }}</span>
+       <span >starting at:</span> <span style="color:blue;">{{ match.starting_at }}</span>
+       <span>result info:</span> <span style="color:cyan;">{{ match.result_info }}</span>
+       <span>leg: {{ match.leg }}</span>
+  
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,53 @@
+
+<link rel="stylesheet" href="{{ asset('front/fonts/icomoon/style.css') }}">
+<link rel="stylesheet" href="{{ asset('front/css/bootstrap/bootstrap.css') }}">
+<link rel="stylesheet" href="{{ asset('front/css/jquery-ui.css') }}">
+<link rel="stylesheet" href="{{ asset('front/css/owl.carousel.min.css') }}">
+<link rel="stylesheet" href="{{ asset('front/css/owl.theme.default.min.css') }}">
+<link rel="stylesheet" href="{{ asset('front/css/jquery.fancybox.min.css') }}">
+<link rel="stylesheet" href="{{ asset('front/css/bootstrap-datepicker.css') }}">
+<link rel="stylesheet" href="{{ asset('front/fonts/flaticon/font/flaticon.css') }}">
+<link rel="stylesheet" href="{{ asset('front/css/aos.css') }}">
+
+
+{% block stylesheets %}
+    <style>
+        /* Password Reset Email Sent page styles */
+        body {
+            font-family: Arial, sans-serif;
+             background-color:	#222831;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20% auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+
+      a {
+            color: #ee1e46;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <p>
+          please  check your email to comfimred your registration 
+          <a href="{{ path('app_register') }}">try again</a>
+        </p>
+    </div>
+{% endblock %}

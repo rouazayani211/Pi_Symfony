@@ -1,0 +1,45 @@
+{% extends 'Front.html.twig' %}
+
+{% block title %}Reservation index{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="title">Reservation index</h1>
+
+        <div class="row">
+            {% for reservation in reservations %}
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Reservation #{{ reservation.id }}</h5>
+                            <p class="card-text">Date de Reservation: {{ reservation.dateDeReservation ? reservation.dateDeReservation|date('Y-m-d H:i:s') : '' }}</p>
+                            <p class="card-text">Nombre de Ticket: {{ reservation.nombreTicket }}</p>
+                            <p class="card-text">Statut de Reservation: {{ reservation.statutReservation }}</p>
+                            <a href="{{ path('app_reservation_show', {'id': reservation.id}) }}" class="btn btn-primary">Show</a>
+                            <a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}" class="btn btn-secondary">Edit</a>
+                            <a href="{{ path('app_reservation_generate_pdf', {'id': reservation.id}) }}" class="btn btn-dark">Create PDF</a>
+                            <a href="{{ path('app_reservation_afficher_qrcode', {'id': reservation.id}) }}" class="btn btn-dark">QRCode</a>
+                            
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+            {% else %}
+                <div class="col">
+                    <div class="alert alert-info" role="alert">
+                        Aucun enregistrement trouvé.
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <a href="{{ path('app_reservation_new') }}" class="btn btn-success">Create new</a>
+        <a href="{{ path('app_reservation_generate_all_pdf') }}" class="btn btn-dark"> PDF ALL</a> 
+        <a href="{{ path('reservation_calendarApi') }}" class="btn btn-dark"> Calendrier</a> 
+        {# Afficher les liens de pagination #}
+        <div class="pagination">
+            {{ knp_pagination_render(reservations) }}
+        </div> 
+              
+    </div>
+{% endblock %}

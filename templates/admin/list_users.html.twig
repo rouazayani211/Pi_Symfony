@@ -1,0 +1,161 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<style>
+    /* Style du container de la table */
+    .table-container {
+        margin: 50px auto;
+        width: 100%;
+    }
+
+    /* Style de la table */
+    .styled-table {
+        width: 100%;
+        border-collapse: collapse;
+        border-radius: 10px; /* Rounded corners */
+        overflow: hidden; /* Hide overflowing content */
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    }
+
+    /* Style des en-têtes */
+    .styled-table th, .styled-table td {
+        padding: 12px 15px; /* Espacement du contenu */
+        text-align: left;
+    }
+
+    .styled-table th {
+        background-color: #ffffff; /* White background for headers */
+        color: #333; /* Couleur du texte */
+        border-bottom: 2px solid #ccc; /* Bordure inférieure */
+    }
+
+    /* Style des lignes paires */
+    .styled-table tbody tr:nth-child(even) {
+        background-color: #f9f9f9; /* Couleur de fond gris très clair */
+    }
+
+    /* Style du survol de la ligne */
+    .styled-table tbody tr:hover {
+        background-color: #e6e6e6; /* Couleur de fond gris clair au survol */
+    }
+
+    /* Style du lien de suppression */
+    .delete-link, .edit-link {
+        padding: 8px 15px;
+        border: none;
+        border-radius: 5px;
+        background-color: #dc3545; /* Red background color for delete */
+        color: #fff; /* White text color */
+        cursor: pointer;
+        font-size: 14px;
+        text-decoration: none; /* Remove underline */
+        transition: background-color 0.3s; /* Smooth transition */
+    }
+
+    .edit-link {
+        background-color: #007bff; /* Blue background color for edit */
+    }
+
+    .delete-link:hover, .edit-link:hover {
+        background-color: #c82333; /* Darker shade on hover for delete */
+         color: #fff; /* Darker shade on hover */
+    }
+
+    .edit-link:hover {
+        background-color: #0056b3; /* Darker shade on hover for edit */
+         color: #fff; /* Darker shade on hover */
+    }
+    .search-button {
+        padding: 8px 15px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .search-button:hover {
+        background-color: #0056b3; /* Darker shade on hover */
+    }
+
+
+     .sort-button {
+        padding: 8px 15px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .sort-button:hover {
+        background-color: #0056b3; /* Darker shade on hover */
+    }
+     .a:hover {
+       
+    }
+
+     .search-input {
+        padding: 8px 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin: 10px auto;
+        width: 900px;
+        font-size: 14px;
+    }
+
+    h1 {
+    text-align: center;
+    font-size: 32px;
+    color: #012970;
+}
+</style>
+<br>
+   <h1>Users list</h1>
+
+    <br>
+        <!-- Ajout du formulaire de recherche -->
+        <form action="{{ path('search_user') }}" method="GET" style="padding:0px;">
+           <input class="search-input" type="text" name="name" placeholder="Search by FirstName" >
+        <button class="search-button" type="submit">Search</button>
+        
+   <button class="sort-button" ><a href="{{ path('listuserssorted') }}" style="color:white;">Sort By Last Name</a></button>
+
+        </form>
+     
+        <table class="styled-table">
+            <thead>
+            <tr>
+                <th> ID </th>
+                <th> CIN </th>
+                <th> First Name</th>
+                <th> Last Name </th>
+                <th> Email </th>
+                <th> Wording </th>
+                <th> Age </th>
+                <th> Actions </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for u in user %}
+                <tr>
+                    <td>{{ u.id }} </td>
+                    <td>{{ u.cin }} </td>
+                    <td>{{ u.name }} </td>
+                    <td>{{ u.lastname }} </td>
+                    <td>{{ u.email }} </td>
+                    <td>{{ u.wording }} </td>
+                    <td>{{ u.age }} </td>
+
+                    <td>
+                    <a href="{{ path('edit', {'id': u.id}) }}" class="edit-link">Edit</a>
+    <a href="{{ path('delete_user', {'id': u.id}) }}" class="delete-link">Delete</a>  
+</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ticket index{% endblock %}
+
+{% block content %}
+    <h1>Ticket index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>NumSiege</th>
+                <th>Prix</th>
+                <th>DateEvenement</th>
+                <th>StatutTicket</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ticket in tickets %}
+            <tr>
+                <td>{{ ticket.id }}</td>
+                <td>{{ ticket.NumSiege }}</td>
+                <td>{{ ticket.prix }}</td>
+                <td>{{ ticket.dateEvenement ? ticket.dateEvenement|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ ticket.statutTicket }}</td>
+                <td>
+                    <a href="{{ path('app_ticket_showback', {'id': ticket.id}) }}">show</a>
+                    <!--<a href="{{ path('app_ticket_editback', {'id': ticket.id}) }}">edit</a>-->
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_ticket_newback') }}">Create new</a>
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="card shadow-lg border-0">
+                    <h4 class="text-center mb-3">Statistique par Statut</h4>
+                        <div class="card-body">
+                            <canvas id="livreurChart" width="400" height="400"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var statuts = [];
+        var counts = {};
+
+        {% for ticket in tickets %}
+            var statut = "{{ ticket.statutTicket }}";
+            if (!counts[statut]) {
+                counts[statut] = 0;
+            }
+            counts[statut]++;
+        {% endfor %}
+
+        var data = {
+            labels: Object.keys(counts),
+            datasets: [{
+                data: Object.values(counts),
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(153, 102, 255, 0.5)',
+                    'rgba(255, 159, 64, 0.5)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        var ctx = document.getElementById('livreurChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    });</script>
+{% endblock %}

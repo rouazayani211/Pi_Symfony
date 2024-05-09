@@ -1,0 +1,15 @@
+{# templates/journalist/delete.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Confirm Delete Journalist{% endblock %}
+
+{% block body %}
+    <h1>Confirm Delete Journalist</h1>
+
+    <p>Are you sure you want to delete the journalist "{{ journalist.name }}"?</p>
+
+    <form method="post" action="{{ path('delete_journalist', {'id': journalist.id}) }}">
+        <button type="submit">Delete</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,34 @@
+{# templates/videofront.html.twig #}
+{% extends 'Front.html.twig' %}
+
+
+{% block title %} Video{% endblock %}
+
+{% block body %}
+
+
+    <!-- Video content section -->
+    <div class="container mt-5">
+      <h1>Game Highlights</h1>
+      <iframe
+          width="100%"
+          height="500px"
+          src="{{ youtubeEmbedUrl }}"
+          frameborder="0"
+          allowfullscreen>
+      </iframe>
+
+      <!-- Back button to the main Equipe page -->
+      <a href="{{ path('app_equipe_front') }}" class="btn btn-primary">Back to Equipes</a>
+    </div>
+
+    <!-- Footer section -->
+    <footer class="footer-section">
+      <div class="container">
+        <!-- Add footer content here -->
+      </div>
+    </footer>
+  </div>
+{% endblock %}
+
+

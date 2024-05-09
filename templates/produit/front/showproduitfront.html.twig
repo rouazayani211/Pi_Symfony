@@ -1,0 +1,63 @@
+
+{% extends 'Front.html.twig' %}
+{% block title %}Evenement{% endblock %}
+
+
+{% block content %}
+
+
+    
+   <div class="container site-section">
+    <div class="row">
+        <div class="col-6 title-section">
+            <h2 class="heading">Products</h2>
+        </div>
+        <div class="search-bar">
+            <form class="form-inline" method="POST" action="#">
+                <input type="search" class="form-control" id="example-search-input" placeholder="Search" title="Enter search keyword">
+            </form>
+        </div><!-- End Search Bar -->
+    </div>
+  <div class="row" id="dataTable">
+    {% for produit in produit %}
+    <div class="col-lg-4 mb-4 custom-media">
+        <div class="d-block">
+            <div class="img mb-4">
+                {% if produit.getImageFile() %}
+                    <img src="{{ asset('uploads/' ~ produit.getImageFile()) }}" alt="Image" class="img-fluid">
+                {% else %}
+                    <img src="{{ asset('Front/images/img_3.jpg') }}" alt="Image" class="img-fluid">
+                {% endif %}
+            </div>
+            <div class="text" class="event-row">
+                <span class="meta">Prix: {{ produit.getPrix }}</span>
+                <h3 class="mb-4">{{ produit.getNomProduit }}</h3>
+                <p>{{ produit.getDescription }}</p>
+                <p><a href="{{ path('add_to_cart', {id: produit.getId}) }}">Add Product</a></p>
+                <div class="text-right">
+                    <span>Stock: {{ produit.getStockDisponible }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+
+
+<script src="{{ asset('Front/js/main.js') }}"></script>
+<script>
+    $(document).ready(function () {
+        $('#example-search-input').on('input', function () {
+            var searchQuery = $(this).val().toLowerCase();
+
+            $('#dataTable .custom-media').each(function () {
+                var productText = $(this).text().toLowerCase();
+                $(this).toggle(productText.includes(searchQuery));
+            });
+        });
+    });
+</script>
+
+{% endblock %}

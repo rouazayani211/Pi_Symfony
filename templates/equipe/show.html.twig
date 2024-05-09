@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Equipe{% endblock %}
+
+{% block content %}
+    <h1>Equipe</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>IdEquipe</th>
+                <th>Nom</th>
+                <th>Region</th>
+                <th>Ligue</th>
+                <th>Classement</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ equipe.idEquipe }}</td>
+                <td>{{ equipe.nom }}</td>
+                <td>{{ equipe.region }}</td>
+                <td>{{ equipe.ligue }}</td>
+                <td>{{ equipe.classement }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_equipe_index') }}" class="btn btn-secondary">back to list</a>
+
+     <!-- New Video Button -->
+   <a href="{{ path('app_equipe_video', {'equipeNom': equipe.nom}) }}" class="btn btn-primary">Watch Highlights</a>
+
+
+{% endblock %}

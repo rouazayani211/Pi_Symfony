@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Ticket{% endblock %}
+
+{% block content %}
+    <h1>Edit Ticket</h1>
+
+    {{ include('ticket/_form.html.twig', {'button_label': 'Update'}) }}
+    {% for message in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+{% endfor %}
+
+{# Votre formulaire de modification ici #}
+
+    <a href="{{ path('app_ticket_indexback') }}">back to list</a>
+    
+    {{ include('ticket/_delete_form.html.twig') }}
+{% endblock %}

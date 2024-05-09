@@ -1,0 +1,32 @@
+{% extends 'Front.html.twig' %}
+
+{% block title %}Terrain index{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Terrains</h2>
+    <div class="row">
+        {% if terrains|length > 0 %}
+            {% for terrain in terrains %}
+                <div class="col-md-4 mb-3">
+                    <div class="card h-100">
+                        <div class="card-header bg-primary text-white">
+                            <h3 class="card-title">{{ terrain.nom }}</h3>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Localisation : {{ terrain.localisation }}</h5>
+                            <p class="card-text">Capacité : {{ terrain.capacite }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12">
+                <div class="alert alert-warning" role="alert">
+                    No records found.
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

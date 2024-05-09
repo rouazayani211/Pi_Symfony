@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Delete Article{% endblock %}
+
+{% block body %}
+<div class="container" style="margin-top:200px;">
+  <h1>Delete Article</h1>
+
+  <form action="{{ path('delete_article_confirm') }}" method="post">
+    <div class="mb-3">
+      <label for="article" class="form-label">Select an article to delete:</label>
+      <select name="article" id="article" class="form-select">
+        {% for article in articles %}
+          <option value="{{ article.id }}">{{ article.title }} - {{ article.creationDate|date('Y-m-d') }} - {{ article.journalist.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <button type="submit" class="btn btn-danger">Delete</button>
+  </form>
+</div>
+{% endblock %}

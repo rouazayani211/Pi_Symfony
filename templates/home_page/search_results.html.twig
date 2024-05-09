@@ -1,0 +1,27 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Search results{% endblock %}
+
+{% block body %}
+<form action="{{ path('app_home_page') }}" method="get">  <label for="keyword">Search:</label>
+    <input type="text" id="keyword" name="keyword" required>
+    <button type="submit">Search</button>
+</form>
+
+{% if articles is not empty %}
+    <h2>Search Results for "{{ keyword }}"</h2>
+    <ul>
+        {% for article in articles %}
+            <li>
+                <div id="img-article">
+                            <img src="uploads/images/{{ article.imagePath }}" src="{{ article.imagePath }}" class="rounded-xl  shadow-xl" width="800" />
+                            <img src="{{ article.imagePath }}" src="{{ article.imagePath }}" class="rounded-xl  shadow-xl" width="800" />
+                        </div>
+                <h2>{{ article.title }}</h2>
+                <p>{{ article.content }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Select Journalist to Modify{% endblock %}
+
+{% block body %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="pagetitle">
+        <h1>Select a journalist to modify</h1>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Pick an entry</h5>
+
+          <ul class="list-group">
+            {% for journalist in journalists %}
+              <li class="list-group-item">
+                <a href="{{ path('modify_journalist_form', {'id': journalist.id}) }}">{{ journalist.name }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+                    
+{% endblock %}

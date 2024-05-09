@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}List of Journalists{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="pagetitle">
+        <h1>Journalists</h1>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Journalists data</h5>
+
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Education</th>
+                <th>Current Company</th>
+                <th>Independent</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for journalist in journalists %}
+                <tr>
+                  <td>{{ journalist.name }}</td>
+                  <td>{{ journalist.education }}</td>
+                  <td>{{ journalist.currentCompany }}</td>
+                  <td>{{ journalist.independent ? 'Yes' : 'No' }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

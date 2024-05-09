@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Joueurs PDF</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>Joueurs List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Age</th>
+                <th>Numero</th>
+                <th>Position</th>
+                <th>IdEquipe</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for joueur in joueurs %}
+                <tr>
+                    <td>{{ joueur.id }}</td>
+                    <td>{{ joueur.nom }}</td>
+                    <td>{{ joueur.prenom }}</td>
+                    <td>{{ joueur.age }}</td>
+                    <td>{{ joueur.numero }}</td>
+                    <td>{{ joueur.position }}</td>
+                    <td>{{ joueur.id_Equipe }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
